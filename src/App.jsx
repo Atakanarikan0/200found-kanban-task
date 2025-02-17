@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext } from 'react'
-import './App.css'
+
 export const DataContext = createContext(null)
 
 export default function App() {
@@ -32,7 +32,12 @@ export default function App() {
   return (
     <>
       <DataContext.Provider value={{data, setData}}>
-        
+      <Header />
+        {
+          boards?.map(x => <button onClick={() => setSelectedBoardId(x?.id)}>{x?.name}</button>)
+        }
+        <button onClick={handleAddBoard}>+ Add Board</button>
+        <Board id={selectedBoardId} />
       </DataContext.Provider>
     </>
   )
