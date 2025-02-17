@@ -49,6 +49,7 @@
   transform: scale(0);
   transform-origin: 100% 0;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 8px 0 rgba(0, 0, 0, 0.12);
+  z-index: 1;
   > li {
     display: block;
     width: 100%;

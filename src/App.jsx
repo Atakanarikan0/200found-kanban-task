@@ -1,4 +1,6 @@
 import { useState, useEffect, createContext } from 'react'
+import Header from './assets/component/Header'
+import Board from './assets/component/Board'
 
 export const DataContext = createContext(null)
 
@@ -9,9 +11,8 @@ export default function App() {
 
   useEffect(() => {
     async function getData() {
-      const data = await fetxh('/data/data.json').then(r => r.json())
+      const data = await fetch('/data/data.json').then(r => r.json())
       setData(data.boards);
-      console.log(data.boards[0].id);
       setSelectedBoardId(data.boards[0].id);
       setBoards(data.boards);
     }
@@ -32,7 +33,7 @@ export default function App() {
   return (
     <>
       <DataContext.Provider value={{data, setData}}>
-      <Header />
+      <Header selectedBoardId={selectedBoardId} />
         {
           boards?.map(x => <button onClick={() => setSelectedBoardId(x?.id)}>{x?.name}</button>)
         }

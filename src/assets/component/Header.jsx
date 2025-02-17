@@ -2,16 +2,53 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { DataContext } from "../../App";
 import '../css/header.css';
 
-export default function Header() {
-  const { data } = useContext(DataContext)
+export default function Header({selectedBoardId}) {
+  const { data, setData } = useContext(DataContext)
   const [isActive, setIsActive] = useState(false)
   const dialogRef = useRef(null);
+  const [subtask, setSubtask] = useState([]);
+  const [status,setStatus] = useState('')
+  // const newStatus = data.find(x=> x.id === selectedBoardId)?.columns || [];
+  // console.log(newStatus);
 
+ 
   function toggleMenu() {
     setIsActive(!isActive)
   }
   function HandleTask() {
     dialogRef.current.showModal()
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const subtasks = formData.getAll('subtask').map(x => ({
+      x,
+      isCompleted: false,
+    }))
+    const formObj = Object.fromEntries(formData.entries());
+    delete formObj.subtask
+    const newAddTask = [
+      {
+        id: crypto.randomUUID(),
+        statusId: crypto.randomUUID(),
+        ...formObj,
+        subtasks,
+      
+      }
+    ]
+    const currentName = data.find(x => x.id === selectedBoardId)?.columns || []
+    // console.log(currentName);
+    const currentColumnsName = currentName.find(y => y.name === status)?.tasks || []
+    
+    // console.log(currentColumnsName);
+    //  currentColumnsName.tasks.push(newAddTask)
+     setData({...currentColumnsName, newAddTask})
+     setData([...data])
+     console.log(data);
+
+    
+    
   }
 
   return(
@@ -35,28 +72,28 @@ export default function Header() {
           </div>
         </div>
       </div>
-      <dialog ref={dialogRef}>
-        <form action="">
-          <button onClick={() => dialogRef.current.close()}>X</button>
+      <dialog ref={dialogRef} >
+        <form onSubmit={handleSubmit}>
+          <button onClick={() => dialogRef.current.close()}>x</button>
           <h1>Add New Task</h1>
           <label>Title</label>
-          <input type="text" placeholder="e.g. Take coffee break"/>
+          <input type="text" placeholder="e.g. Take coffee break" name="title"/>
           <label>Description</label>
-          <textarea rows={4} placeholder="e.g. It’s always good to take a break. This 15 minute break will  recharge the batteries a little."></textarea>
+          <textarea rows={4} name="description" placeholder="e.g. It’s always good to take a break. This 15 minute break will  recharge the batteries a little."></textarea>
           <label>Substasks</label>
           <div className="subtask">
-            <input type="text" placeholder="e.g. Make coffee"/> <img src="/public/img/delete-icon.svg" alt="" />
+            <input type="text" name="subtask"  placeholder="e.g. Make coffee"/> <img src="/public/img/delete-icon.svg" alt="" />
           </div>
           <div className="subtask">
-            <input type="text" placeholder="e.g. Drink coffee & smile"/> <img src="/public/img/delete-icon.svg" alt="" />
+            <input type="text" name="subtask" placeholder="e.g. Drink coffee & smile"/> <img src="/public/img/delete-icon.svg" alt="" />
           </div>
           <button className="add-new-subtask">+ Add New Subtask</button>
           <label>Status</label>
-          <select name="status" id="">
+          <select name="status" onClick={(e) => setStatus(e.target.value)} id="">
             <option value="Todo">Todo</option>
-            <option value="Todo">Doing</option>
-            <option value="Todo">Done</option>
-            <option value="Todo">Now</option>
+            <option value="Doing">Doing</option>
+            <option value="Done">Done</option>
+            <option value="Now">Now</option>
           </select>
           <button className="create-task">Create Task</button>
         </form>
