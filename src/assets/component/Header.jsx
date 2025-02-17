@@ -2,8 +2,8 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { DataContext } from "../../App";
 import '../css/header.css';
 
-export default function Header({selectedBoardId}) {
-  const { data, setData } = useContext(DataContext)
+export default function Header() {
+  const { data } = useContext(DataContext)
   const [isActive, setIsActive] = useState(false)
   const dialogRef = useRef(null);
   const [subtask, setSubtask] = useState([]);
