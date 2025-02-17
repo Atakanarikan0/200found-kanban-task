@@ -40,6 +40,7 @@ export default function App() {
   return (
     <>
       <DataContext.Provider value={{ data, setData }}>
+        <Header />
         {
           boards?.map(x => <button onClick={() => setSelectedBoardId(x?.id)}>{x?.name}</button>)
         }
