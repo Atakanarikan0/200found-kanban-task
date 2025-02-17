@@ -7,7 +7,7 @@ export const DataContext = createContext(null)
 // todo
 // dialog için kebap butonu 
 // board değiştirme
-// board ekleme/editleme dialogları/componentleri
+// board editleme dialogları/componentleri
 // sidebar
 // task add/edit dialogları/componentleri
 // column ekleme
@@ -22,7 +22,6 @@ export default function App() {
     async function getData() {
       const data = await fetch('/data/data.json').then(r => r.json());
       setData(data.boards);
-      console.log(data.boards[0].id);
       setSelectedBoardId(data.boards[0].id);
       setBoards(data.boards);
     }
@@ -35,7 +34,7 @@ export default function App() {
 
   return (
     <>
-      <DataContext.Provider value={{ data, setData, addRef }}>
+      <DataContext.Provider value={{ data, setData, addRef, selectedBoardId }}>
         <Header />
         {
           boards?.map(x => <button onClick={() => setSelectedBoardId(x?.id)}>{x?.name}</button>)
