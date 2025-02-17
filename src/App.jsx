@@ -1,5 +1,7 @@
-import { useState, useEffect, createContext } from 'react'
+import { useState, useEffect, createContext, useRef } from 'react'
 import Board from './assets/component/Board';
+import Header from './assets/component/Header';
+import AddBoard from './assets/component/AddBoard';
 export const DataContext = createContext(null)
 
 // todo
@@ -14,6 +16,7 @@ export default function App() {
   const [data, setData] = useState([]);
   const [selectedBoardId, setSelectedBoardId] = useState();
   const [boards, setBoards] = useState([]) 
+  const addRef = useRef()
 
   useEffect(() => {
     async function getData() {
@@ -26,26 +29,20 @@ export default function App() {
     getData();
   }, [])
 
-  function handleAddBoard() {
-    setBoards([...boards, {
-      "id": crypto.randomUUID(),
-      "name": "new",
-      "columns": []
-  }])
-  }
-
-
-
+  useEffect(() => {
+    setBoards(data)
+  }, [data])
 
   return (
     <>
-      <DataContext.Provider value={{ data, setData }}>
+      <DataContext.Provider value={{ data, setData, addRef }}>
         <Header />
         {
           boards?.map(x => <button onClick={() => setSelectedBoardId(x?.id)}>{x?.name}</button>)
         }
-        <button onClick={handleAddBoard}>+ Add Board</button>
+        <button onClick={() => addRef.current.showModal()}>+ Add Board</button>
         <Board id={selectedBoardId} />
+        <AddBoard />
       </DataContext.Provider>
     </>
   )

@@ -33,7 +33,7 @@ export default function Board({ id }) {
         {
           columns?.map(x => <Column colData={x} key={x.id}/>)
         }
-        <button onClick={addColumn}></button>
+        <button onClick={addColumn}>Add Column</button>
       </div>
       <TaskDetail boardData={boardData} currentTask={currentTask} dialogRef={dialogRef} />
     </ColTaskContext.Provider>  
