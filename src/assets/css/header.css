@@ -89,7 +89,8 @@
   width: 100%;
   z-index: 1000;
   background-color: #fff;
-  transition: transform 1s ease;
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+  opacity: 1;
 
   .header-launch {
     margin-right: auto;
@@ -388,4 +389,5 @@ dialog::backdrop {
 
 .hidden-header {
   transform: translateY(-100%);
+  opacity: 0;
 }
