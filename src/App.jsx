@@ -5,12 +5,8 @@ import AddBoard from './assets/component/AddBoard';
 export const DataContext = createContext(null)
 
 // todo
-// dialog için kebap butonu 
-// board değiştirme
-// board ekleme/editleme dialogları/componentleri
-// sidebar
 // task add/edit dialogları/componentleri
-// column ekleme
+// css & responsive
 
 export default function App() {
   const [data, setData] = useState([]);
@@ -34,7 +30,7 @@ export default function App() {
 
   return (
     <>
-      <DataContext.Provider value={{ data, setData }}>
+      <DataContext.Provider value={{ data, setData, addRef, selectedBoardId  }}>
         <Header />
         {
           boards?.map(x => <button onClick={() => setSelectedBoardId(x?.id)}>{x?.name}</button>)

@@ -34,8 +34,10 @@ export default function AddColumn({ addNewColRef, id }) {
     const updatedColumns = inputs.map((input) => ({
       id: input.id,
       name: formObj[`columnName${input.id}`], 
-      tasks: [],
+      tasks: boardData?.columns?.find(x => x.id == input.id)?.tasks,
     }));
+
+    console.log(inputs[0].tasks)
 
     const updatedData = data.map((board) =>
       board.id === id
@@ -56,6 +58,7 @@ export default function AddColumn({ addNewColRef, id }) {
           <form ref={resetRef} onSubmit={handleColumnSubmit}>
             <legend>Name</legend>
             <input
+              disabled
               type="text"
               name="name"
               defaultValue={boardData?.name}

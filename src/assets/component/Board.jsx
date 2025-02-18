@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { DataContext } from "../../App";
-import TaskDetail from "./Task-detail";
+import TaskDetail from "./TaskDetail";
 import Column from "./Column";
 import AddColumn from "./AddColumn";
 
@@ -21,6 +21,11 @@ export default function Board({ id }) {
   function openModal() {
     dialogRef.current.showModal();
   }
+
+  useEffect(() => {
+    setColumns(boardData?.columns)
+
+  }, [data])
 
   return (
     <>
