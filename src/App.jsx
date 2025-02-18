@@ -11,7 +11,7 @@ export const DataContext = createContext(null)
 export default function App() {
   const [data, setData] = useState([]);
   const [selectedBoardId, setSelectedBoardId] = useState();
-  const [boards, setBoards] = useState([]) 
+  const [boards, setBoards] = useState([])
   const addRef = useRef()
 
   useEffect(() => {
@@ -24,14 +24,21 @@ export default function App() {
     getData();
   }, [])
 
-  useEffect(() => {
-    setBoards(data)
-  }, [data])
+  function handleAddBoard() {
+    setBoards([...boards, {
+      "id": crypto.randomUUID(),
+      "name": "new",
+      "columns": []
+    }])
+  }
+
+
+
 
   return (
     <>
       <DataContext.Provider value={{ data, setData, addRef, selectedBoardId  }}>
-        <Header />
+        <Header selectedBoardId={selectedBoardId} />
         {
           boards?.map(x => <button onClick={() => setSelectedBoardId(x?.id)}>{x?.name}</button>)
         }
