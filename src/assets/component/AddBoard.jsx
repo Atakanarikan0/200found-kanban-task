@@ -4,7 +4,7 @@ import { DataContext } from "../../App";
 export default function AddBoard() {
   const [inputId, setInputId] = useState(0);
   const [inputs, setInputs] = useState([0]);
-  const { addRef, data, setData } = useContext(DataContext)
+  const { addRef, data, setData, setSelectedBoardId } = useContext(DataContext);
 
 
   function addNewColumnInput(e) {
@@ -14,7 +14,7 @@ export default function AddBoard() {
   }
 
   function handleBoardSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
     const formData = new FormData(e.target);
     const formObj = Object.fromEntries(formData);
     const columnObj = {
@@ -23,16 +23,17 @@ export default function AddBoard() {
       columns: inputs.map(x => ({
           id: crypto.randomUUID(),
           name: formObj[`columnName${x}`],
-          tasks: [],
+          tasks: []
         })
       )
     }
     setData((prevData) => [...prevData, columnObj]);
     addRef.current.close();
+    setSelectedBoardId(columnObj.id)
   }
 
   useEffect(() => {
-    console.log(data);
+    // console.log(data);
   }, [data]);
 
   return (

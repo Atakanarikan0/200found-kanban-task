@@ -15,7 +15,7 @@ export default function Board({ id }) {
   const [columns, setColumns] = useState([]);
 
   useEffect(() => {
-    setColumns(boardData?.columns)
+    setColumns(boardData?.columns);
   }, [id])
 
   function openModal() {
@@ -23,13 +23,12 @@ export default function Board({ id }) {
   }
 
   useEffect(() => {
-    setColumns(boardData?.columns)
-
+    setColumns(boardData?.columns);
   }, [data])
 
   return (
     <>
-    <ColTaskContext.Provider value={{ openModal, setCurrentTask }}>
+    <ColTaskContext.Provider value={{ openModal, setCurrentTask, currentTask }}>
       <h2>{boardData?.name}</h2>
       <div>
         {

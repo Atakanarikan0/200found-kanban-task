@@ -37,7 +37,6 @@ export default function AddColumn({ addNewColRef, id }) {
       tasks: boardData?.columns?.find(x => x.id == input.id)?.tasks,
     }));
 
-    console.log(inputs[0].tasks)
 
     const updatedData = data.map((board) =>
       board.id === id

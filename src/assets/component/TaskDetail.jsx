@@ -1,9 +1,10 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { DataContext } from "../../App";
+import EditTask from "./EditTask";
 
 export default function TaskDetail({ boardData, currentTask, dialogRef }) {
   const { data } = useContext(DataContext);
-  console.log(boardData);
+  const editTaskRef = useRef();
 
   function handleStatusChange() {
     console.log()
@@ -11,10 +12,10 @@ export default function TaskDetail({ boardData, currentTask, dialogRef }) {
 
   return (
     <>
-    <dialog ref={dialogRef}>
-    {/* <dialog style={{zIndex:-1}} onClick={() => dialogRef.current.close()} ref={dialogRef}> */}
+      <dialog ref={dialogRef}>
+        {/* <dialog style={{zIndex:-1}} onClick={() => dialogRef.current.close()} ref={dialogRef}> */}
 
-        <div style={{width:"100%", height:"100%", zIndex:"999"}}>
+        <div style={{ width: "100%", height: "100%", zIndex: "999" }}>
           <h3>{currentTask?.title}</h3>
           <p>{currentTask?.description}</p>
           <p>{currentTask?.subtasks?.filter(z => z?.isCompleted == true).length} of {currentTask?.subtasks?.length} subtasks</p>
@@ -34,8 +35,11 @@ export default function TaskDetail({ boardData, currentTask, dialogRef }) {
               </option>)
             }
           </select>
+          <button onClick={() => {dialogRef.current.close(); editTaskRef.current.showModal()}}>edit task</button>
+          <button>delete task</button>
         </div>
       </dialog>
+      <EditTask editTaskRef={editTaskRef} />
     </>
   )
 }
