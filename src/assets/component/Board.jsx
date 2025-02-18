@@ -4,6 +4,8 @@ import TaskDetail from "./TaskDetail";
 import Column from "./Column";
 import AddColumn from "./AddColumn";
 
+import './../css/Board.css'
+
 export const ColTaskContext = createContext();
 
 export default function Board({ id }) {
@@ -28,17 +30,17 @@ export default function Board({ id }) {
 
   return (
     <>
-    <ColTaskContext.Provider value={{ openModal, setCurrentTask, currentTask, boardData }}>
-      <h2>{boardData?.name}</h2>
-      <div>
-        {
-          columns?.map(x => <Column colData={x} key={x.id}/>)
-        }
-        <button onClick={() => {addNewColRef.current.showModal()}}>Add Column</button>
-      </div>
-      <TaskDetail boardData={boardData} currentTask={currentTask} dialogRef={dialogRef} />
-      <AddColumn addNewColRef={addNewColRef} id={id} />
-    </ColTaskContext.Provider>  
+      <ColTaskContext.Provider value={{ openModal, setCurrentTask, currentTask, boardData }}>
+        <h2>{boardData?.name}</h2>
+        <div className="board-columns">
+          {
+            columns?.map(x => <Column colData={x} key={x.id} />)
+          }
+          <button onClick={() => { addNewColRef.current.showModal() }}>Add Column</button>
+        </div>
+        <TaskDetail boardData={boardData} currentTask={currentTask} dialogRef={dialogRef} />
+        <AddColumn addNewColRef={addNewColRef} id={id} />
+      </ColTaskContext.Provider>
 
     </>
   )

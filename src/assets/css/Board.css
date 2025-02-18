@@ -1,0 +1,25 @@
+/* berna section start */
+
+.board-columns {
+  display: flex;
+}
+
+.column-item {
+  width: 280px;
+  flex-shrink: 0;
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-transform: uppercase;
+
+  h3 {
+    
+  }
+}
+
+
+
+/* berna section end */
