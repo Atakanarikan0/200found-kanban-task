@@ -11,7 +11,7 @@ export const DataContext = createContext(null)
 export default function App() {
   const [data, setData] = useState([]);
   const [selectedBoardId, setSelectedBoardId] = useState();
-  const [boards, setBoards] = useState([])
+  const [boards, setBoards] = useState([]) 
   const addRef = useRef()
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    setBoards(data)
+    setBoards(data);
   }, [data])
 
 
@@ -33,13 +33,8 @@ export default function App() {
 
   return (
     <>
-<<<<<<< HEAD
-      <DataContext.Provider value={{ setSelectedBoardId, data, setData, addRef, selectedBoardId  }}>
-        <Header />
-=======
       <DataContext.Provider value={{ data, setData, addRef, selectedBoardId  }}>
         <Header selectedBoardId={selectedBoardId} />
->>>>>>> master
         {
           boards?.map(x => <button onClick={() => setSelectedBoardId(x?.id)}>{x?.name}</button>)
         }
