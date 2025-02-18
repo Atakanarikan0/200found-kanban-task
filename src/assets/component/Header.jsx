@@ -154,7 +154,7 @@ export default function Header() {
             </div>
           </div>
         </div> :
-        <div className='header'>
+        <div className={`header ${hidden ? "hidden-header" : ""}`}>
           <img src="/img/logo-desktop-light.png" alt="" />
           <hr />
           <div className="board-name">
