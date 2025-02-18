@@ -9,21 +9,23 @@
     width: 6px;
     height: 6px;
     border-radius: 5px;
-    background: #828FA3;
+    background: #828fa3;
     margin: 3px 0;
   }
 }
 .middle {
-  transition: all 0.25s cubic-bezier(.72,1.2,.71,.72);
+  transition: all 0.25s cubic-bezier(0.72, 1.2, 0.71, 0.72);
   transform: scale(1);
   position: relative;
-  box-shadow: 0 0.1px 0.1px 0 rgba(0, 0, 0, 0.16), 0 0.1px 0.3px 0 rgba(0, 0, 0, 0.12);
-  filter: blur(.1px);
+  box-shadow: 0 0.1px 0.1px 0 rgba(0, 0, 0, 0.16),
+    0 0.1px 0.3px 0 rgba(0, 0, 0, 0.12);
+  filter: blur(0.1px);
 }
 .middle.active {
   transform: scale(4.5);
-  transition: all 0.25s cubic-bezier(.32,2.04,.85,.54);
-  box-shadow: 0 0.1px 0.1px 0 rgba(0, 0, 0, 0.16), 0 0.1px 0.3px 0 rgba(0, 0, 0, 0.12);
+  transition: all 0.25s cubic-bezier(0.32, 2.04, 0.85, 0.54);
+  box-shadow: 0 0.1px 0.1px 0 rgba(0, 0, 0, 0.16),
+    0 0.1px 0.3px 0 rgba(0, 0, 0, 0.12);
 }
 .cross {
   position: absolute;
@@ -32,14 +34,14 @@
   transform: translate(-50%, -50%) scale(0);
   margin-top: -1px;
   color: white;
-  transition: all 0.2s cubic-bezier(.72,1.2,.71,.72);
+  transition: all 0.2s cubic-bezier(0.72, 1.2, 0.71, 0.72);
   font-size: 22px;
   user-select: none;
 }
 
 .cross.active {
   transform: translate(-50%, -50%) scale(1);
-  transition: all 0.15s cubic-bezier(.32,2.04,.85,.54);
+  transition: all 0.15s cubic-bezier(0.32, 2.04, 0.85, 0.54);
 }
 .dropdown {
   position: absolute;
@@ -58,20 +60,19 @@
       padding: 1em 18px;
       display: inline-block;
       white-space: pre;
-      color: #828FA3;
-      
+      color: #828fa3;
     }
   }
-&:hover {
-  ul {
-    transform: scale(1);
+  &:hover {
+    ul {
+      transform: scale(1);
+    }
   }
-}
 }
 
 .dropdown.active {
-transform: scale(1);
-transition: all 0.25s cubic-bezier(.5,1.8,.9,.8);
+  transform: scale(1);
+  transition: all 0.25s cubic-bezier(0.5, 1.8, 0.9, 0.8);
 }
 /* Kebab Menu End */
 
@@ -84,7 +85,7 @@ transition: all 0.25s cubic-bezier(.5,1.8,.9,.8);
   .header-launch {
     margin-right: auto;
     margin-left: 16px;
-    background: url(/public/img/down-icon.svg) no-repeat right;
+    background: url(/img/down-icon.svg) no-repeat right;
     padding-right: 16px;
     h1 {
       font-weight: 700;
@@ -95,17 +96,30 @@ transition: all 0.25s cubic-bezier(.5,1.8,.9,.8);
   }
   > div {
     span {
-      background: #635FC7;
+      background: #635fc7;
       padding: 10px 18px;
       border-radius: 24px;
       display: inline-block;
+    }
+  }
+
+  .arrow-up {
+    margin-right: auto;
+    margin-left: 16px;
+    background: url(/img/up-icon.svg) no-repeat right;
+    padding-right: 16px;
+    h1 {
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 22.68px;
+      letter-spacing: 0px;
     }
   }
 }
 /* Header end */
 
 /* Dialog Start */
-dialog{
+dialog {
   border: none;
   border-radius: 6px;
   padding: 24px;
@@ -127,11 +141,11 @@ dialog{
       line-height: 15.12px;
       letter-spacing: 0px;
       margin-bottom: 8px;
-      color: #828FA3;
+      color: #828fa3;
     }
     input {
       margin-bottom: 24px;
-      border: 1px solid #828FA340;
+      border: 1px solid #828fa340;
       padding: 8px 16px;
       width: 100%;
       font-weight: 500;
@@ -143,7 +157,7 @@ dialog{
     textarea {
       resize: none;
       width: 100%;
-      border: 1px solid #828FA340;
+      border: 1px solid #828fa340;
       padding: 8px 16px;
       font-weight: 500;
       font-size: 13px;
@@ -163,9 +177,9 @@ dialog{
       }
     }
     .add-new-subtask {
-      color: #635FC7;
+      color: #635fc7;
       border: none;
-      background: #635FC71A;
+      background: #635fc71a;
       width: 100%;
       padding-block: 8px;
       border-radius: 20px;
@@ -178,7 +192,7 @@ dialog{
     select {
       width: 100%;
       padding: 8px 16px;
-      border: 1px solid #828FA340;
+      border: 1px solid #828fa340;
       font-weight: 500;
       font-size: 13px;
       line-height: 23px;
@@ -186,8 +200,8 @@ dialog{
       margin-bottom: 21px;
     }
     .create-task {
-      background: #635FC7;
-      color: #FFF;
+      background: #635fc7;
+      color: #fff;
       border: none;
       width: 100%;
       border-radius: 20px;
@@ -196,7 +210,64 @@ dialog{
       font-size: 13px;
       line-height: 23px;
       letter-spacing: 0px;
-
     }
+  }
+}
+/* dialog end */
+
+/* Nav dialog start */
+.nav-ref {
+  box-shadow: 0px 10px 20px 0px #364e7e40;
+  position: relative;
+  top: 5rem;
+  margin: 0 auto;
+  width: fit-content;
+  height: fit-content;
+  left: 0;
+  right: 0;
+
+  button {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    padding-left: 2rem;
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+    width: 17.25rem;
+    min-height: 2.8rem;
+    height: fit-content;
+    word-break: break-word;
+    margin-bottom: 0.2rem;
+    position: relative;
+    background: transparent;
+    transition: color 0.2s ease;
+    color: inherit;
+    z-index: 0;
+  }
+
+  button::after {
+    content: "";
+    position: absolute;
+    transition: all 1s ease;
+    z-index: -1;
+    display: flex;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0 25px 25px 0;
+    top: 0;
+    background-color: #635fc7;
+  }
+}
+
+.nav-ref-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 }
