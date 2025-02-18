@@ -31,12 +31,11 @@ export default function Board({ id }) {
   return (
     <>
       <ColTaskContext.Provider value={{ openModal, setCurrentTask, currentTask, boardData }}>
-        <h2>{boardData?.name}</h2>
-        <div className="board-columns">
+        <div className="board-columns-cont">
           {
             columns?.map(x => <Column colData={x} key={x.id} />)
           }
-          <button onClick={() => { addNewColRef.current.showModal() }}>Add Column</button>
+          <button className="add-column-btn" onClick={() => { addNewColRef.current.showModal() }}>+ New Column</button>
         </div>
         <TaskDetail boardData={boardData} currentTask={currentTask} dialogRef={dialogRef} />
         <AddColumn addNewColRef={addNewColRef} id={id} />

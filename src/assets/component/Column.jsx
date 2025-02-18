@@ -8,13 +8,13 @@ export default function Column({ colData }) {
 
   return (
     <>
-      <div className="column-item">
+      <div className="single-column">
         <div className="column-header">
           {dotSvg}
-          <h3>{colData?.name} ({colData?.tasks?.length})</h3>
+          <h3>{colData?.name} ({colData?.tasks?.length ?? 0})</h3>
 
         </div>
-        <ul>
+        <ul className={colData?.tasks?.length > 0 ? "" : "empty-single-column" }>
           {colData?.tasks?.map(y => <Task key={y.id} taskData={y} colData={colData} />)}
         </ul>
       </div>

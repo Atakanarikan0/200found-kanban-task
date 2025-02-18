@@ -7,7 +7,7 @@ export default function Task({ taskData }) {
   
   return (
     <>
-      <li onClick={() => { setCurrentTask(taskData); openModal(); }}>
+      <li className="single-task-item" onClick={() => { setCurrentTask(taskData); openModal(); }}>
         <h4>{taskData.title}</h4>
         <p>{taskData.subtasks.filter(z => z.isCompleted == true).length} of {taskData.subtasks.length} subtasks</p>
       </li>
