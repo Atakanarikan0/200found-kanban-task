@@ -2,19 +2,38 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { DataContext } from "../../App";
 import '../css/header.css';
 
-export default function Header({ selectedBoardId }) {
-  const { data, setData } = useContext(DataContext)
+export default function Header() {
+  const { data, setData, selectedBoardId, setSelectedBoardId, boards, addRef } = useContext(DataContext)
   const [isActive, setIsActive] = useState(false)
+  const [isDown, setIsDown] = useState(false)
   const dialogRef = useRef(null);
+  const boardRef = useRef(null);
+  const editRef = useRef(null)
   const [subtask, setSubtask] = useState([{ id: 1, value: "" }]);
   const [status, setStatus] = useState('Todo')
+  const [editBoard, setEditBoard] = useState([])
+  console.log(boards)
+
+  const currentBoard = data.find(board => board.id === selectedBoardId)
+
+  useEffect(() => {
+    if (currentBoard) {
+      setEditBoard(currentBoard.name);
+
+    }
+  }, [currentBoard]);
 
 
+  function handleNav() {
+    boardRef.current.showModal()
+    setIsDown(!isDown)
+  }
 
   function toggleMenu() {
     setIsActive(!isActive)
   }
-  function HandleTask() {
+
+  function handleTask() {
     dialogRef.current.showModal()
   }
 
@@ -24,7 +43,6 @@ export default function Header({ selectedBoardId }) {
 
     }
     const formData = new FormData(e.target);
-
     const subtasks = formData.getAll('subtask').map(x => ({
       x,
       isCompleted: false,
@@ -39,11 +57,8 @@ export default function Header({ selectedBoardId }) {
     };
 
     delete formObj.subtask;
-
-
     const currentBoard = data.find(board => board.id === selectedBoardId);
     const currentColumn = currentBoard?.columns.find(column => column.name === status);
-
 
     if (currentColumn) {
       currentColumn.tasks = [...currentColumn.tasks, newAddTask];
@@ -51,14 +66,14 @@ export default function Header({ selectedBoardId }) {
       setData([...data]);
       console.log('render2')
     }
-
     console.log(newAddTask);
     console.log(status)
     e.target.reset()
+    dialogRef.current.close()
   }
 
   function handleAddSubtasks() {
-    setSubtask[[...subtask, { id: subtask.length + 1, value: "" }]]
+    setSubtask([...subtask, { id: subtask.length + 1, value: "" }])
     console.log('çalıştım')
   }
 
@@ -69,23 +84,62 @@ export default function Header({ selectedBoardId }) {
     setSubtask(updatedSubtasks);
   }
 
+  function handleDelete(id) {
+    setSubtask(subtask.filter(x => x.id !== id))
+  }
 
   return (
     <>
       <div className="header">
-        <img src="/public/img/logo-mobil.svg" alt="" />
-        <div className="header-launch">
-          <h1>Platform Launch</h1>
+        <img src="/img/logo-mobil.svg" alt="" />
+        <div className={isDown ? 'arrow-up' : 'header-launch'}>
+          <h1 onClick={handleNav}>Platform Launch</h1>
+          <dialog ref={boardRef} className="nav-ref">
+            <div className="nav-ref-content">
+              <h3>ALL BOARDS({data.length})</h3>
+              {boards?.map(x => (
+                <div key={x?.id}>
+                  <button onClick={() => setSelectedBoardId(x?.id)}>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M0.846133 0.846133C0.304363 1.3879 0 2.12271 0 2.88889V13.1111C0 13.8773 0.304363 14.6121 0.846133 15.1538C1.3879 15.6957 2.12271 16 2.88889 16H13.1111C13.8773 16 14.6121 15.6957 15.1538 15.1538C15.6957 14.6121 16 13.8773 16 13.1111V2.88889C16 2.12271 15.6957 1.3879 15.1538 0.846133C14.6121 0.304363 13.8773 0 13.1111 0H2.88889C2.12271 0 1.3879 0.304363 0.846133 0.846133ZM1.33333 13.1111V8.44448H9.77781V14.6667H2.88889C2.03022 14.6667 1.33333 13.9698 1.33333 13.1111ZM9.77781 7.11111V1.33333H2.88889C2.47633 1.33333 2.08067 1.49723 1.78895 1.78895C1.49723 2.08067 1.33333 2.47633 1.33333 2.88889V7.11111H9.77781ZM11.1111 5.77778H14.6667V10.2222H11.1111V5.77778ZM14.6667 11.5555H11.1111V14.6667H13.1111C13.5236 14.6667 13.9194 14.5028 14.2111 14.2111C14.5028 13.9194 14.6667 13.5236 14.6667 13.1111V11.5555ZM14.6667 2.88889V4.44445H11.1111V1.33333H13.1111C13.5236 1.33333 13.9194 1.49723 14.2111 1.78895C14.5028 2.08067 14.6667 2.47633 14.6667 2.88889Z" fill="#828FA3" />
+                    </svg>
+                    {x?.name}
+                  </button>
+                </div>
+              ))}
+              <button onClick={() => { addRef.current.showModal(), boardRef.current.close() }}>+ Add Board</button>
+            </div>
+          </dialog>
         </div>
         <div>
-          <span onClick={HandleTask}><img src="/public/img/plus-icon.svg" alt="" /></span>
+          <span onClick={handleTask}><img src="/img/plus-icon.svg" alt="" /></span>
           <div className="kebab" onClick={toggleMenu}>
             <figure className={isActive ? 'active' : ""}></figure>
             <figure className={isActive ? 'middle active' : 'middle'}></figure>
             <p className={isActive ? 'cross active' : 'cross'}>x</p>
             <figure className={isActive ? 'active' : ""}></figure>
             <ul className={isActive ? 'dropdown active' : 'dropdown'}>
-              <li><a href="#">Edit Board</a></li>
+              <li><a href="#" onClick={() => editRef.current.showModal()}>Edit Board</a></li>
+              <dialog ref={editRef}>
+                {/* <div>
+                  <h4>Add New Board</h4>
+                  <form onSubmit={(e) => handleBoardSubmit(e)}>
+                    <legend>Name</legend>
+                    <input type="text" name="name" defaultValue="aaa" placeholder="e.g. Web Design" />
+                    <legend>Columns</legend>
+                    {
+                      inputs.map(x =>
+                        <input
+                          key={x.id}
+                          type="text"
+                          defaultValue="bbb"
+                          name={`columnName${x}`} />)
+                    }
+                    <button onClick={addNewColumnInput}>+ Add New Column</button>
+                    <button type="submit">Create New Board</button>
+                  </form>
+                </div> */}
+              </dialog>
               <li><a href="#" style={{ color: 'red' }}>Delete Board</a></li>
             </ul>
           </div>
@@ -99,12 +153,13 @@ export default function Header({ selectedBoardId }) {
           <label>Description</label>
           <textarea rows={4} name="description" placeholder="e.g. It’s always good to take a break. This 15 minute break will  recharge the batteries a little." required></textarea>
           <label>Substasks</label>
-          {subtask.map(x => {
+          {subtask.map(x => (
             <div className="subtask" key={x.id}>
-              <input type="text" value={x.value} required placeholder="e.g. Make coffee" onChange={(e) => handleSubtasksChange(x.id, e)} />
-              <img src='/img/delete-icon.svg' alt="" />
+              <input type="text" value={x.value} placeholder="e.g. Make coffee" onChange={(e) => handleSubtasksChange(x.id, e)} />
+              <img src='/img/delete-icon.svg' onClick={() => handleDelete(x.id)} alt="" />
             </div>
-          })}
+          ))}
+
           <button className="add-new-subtask" type="button" onClick={handleAddSubtasks}>+ Add New Subtask</button>
           <label>Status</label>
           <select name="status" onChange={(e) => setStatus(e.target.value)} id="">

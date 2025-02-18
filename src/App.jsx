@@ -33,12 +33,9 @@ export default function App() {
 
   return (
     <>
-      <DataContext.Provider value={{ data, setData, addRef, selectedBoardId  }}>
-        <Header selectedBoardId={selectedBoardId} />
-        {
-          boards?.map(x => <button onClick={() => setSelectedBoardId(x?.id)}>{x?.name}</button>)
-        }
-        <button onClick={() => addRef.current.showModal()}>+ Add Board</button>
+      <DataContext.Provider value={{ data, setData, addRef, selectedBoardId, setSelectedBoardId, boards }}>
+        <Header />
+
         <Board id={selectedBoardId} />
         <AddBoard />
       </DataContext.Provider>
