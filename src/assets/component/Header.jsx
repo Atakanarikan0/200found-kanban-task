@@ -34,7 +34,6 @@ export default function Header() {
         statusId: crypto.randomUUID(),
         ...formObj,
         subtasks,
-      
       }
     ]
     const currentName = data.find(x => x.id === selectedBoardId)?.columns || []
