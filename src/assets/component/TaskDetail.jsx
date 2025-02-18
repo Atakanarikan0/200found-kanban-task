@@ -22,7 +22,7 @@ export default function TaskDetail({ boardData, currentTask, dialogRef }) {
           <h4>Subtasks</h4>
           <div>
             {
-              currentTask?.subtasks?.map(x => <label htmlFor=""><input type="checkbox" defaultChecked={x.isCompleted} />{x.title}</label>)
+              currentTask?.subtasks?.map(x => <label><input type="checkbox" defaultChecked={x.isCompleted} />{x.title}</label>)
             }
           </div>
           <h4>Current Status</h4>

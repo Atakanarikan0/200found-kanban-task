@@ -28,7 +28,7 @@ export default function Board({ id }) {
 
   return (
     <>
-    <ColTaskContext.Provider value={{ openModal, setCurrentTask, currentTask }}>
+    <ColTaskContext.Provider value={{ openModal, setCurrentTask, currentTask, boardData }}>
       <h2>{boardData?.name}</h2>
       <div>
         {
