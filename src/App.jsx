@@ -11,8 +11,9 @@ export const DataContext = createContext(null)
 export default function App() {
   const [data, setData] = useState([]);
   const [selectedBoardId, setSelectedBoardId] = useState();
-  const [boards, setBoards] = useState([]) 
+  const [boards, setBoards] = useState([])
   const addRef = useRef()
+  const [screenSize, setScreenSize] = useState(window.innerWidth < 525);
 
   useEffect(() => {
     async function getData() {
@@ -25,15 +26,18 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    setBoards(data);
+    setBoards(data)
   }, [data])
 
+  useEffect(() => {
+    window.addEventListener("resize", () => setScreenSize(window.innerWidth < 525));
+  }, [])
 
 
 
   return (
     <>
-      <DataContext.Provider value={{ data, setData, addRef, selectedBoardId, setSelectedBoardId, boards }}>
+      <DataContext.Provider value={{ data, setData, addRef, selectedBoardId, setSelectedBoardId, boards, screenSize }}>
         <Header />
 
         <Board id={selectedBoardId} />
