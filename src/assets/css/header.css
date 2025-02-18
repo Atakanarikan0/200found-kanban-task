@@ -32,7 +32,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
-  margin-top: -1px;
+  margin-top: -3px;
   color: white;
   transition: all 0.2s cubic-bezier(0.72, 1.2, 0.71, 0.72);
   font-size: 22px;
@@ -83,7 +83,11 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 16px;
-  z-index: 99;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
   background-color: #fff;
   .header-launch {
     margin-right: auto;
@@ -218,7 +222,10 @@ dialog {
   }
 }
 /* dialog end */
-
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
 /* Nav dialog start */
 .nav-ref {
   box-shadow: 0px 10px 20px 0px #364e7e40;
@@ -245,11 +252,10 @@ dialog {
     position: relative;
     background: transparent;
     transition: color 0.2s ease;
-    color: inherit;
     gap: 12px;
-    z-index: 0;
     border: none;
     margin-left: -2rem;
+    color: #828fa3;
   }
 
   button::after {
@@ -264,7 +270,7 @@ dialog {
     height: 100%;
     border-radius: 0 25px 25px 0;
     top: 0;
-    background-color: #635fc7;
+    border: none;
   }
 }
 
@@ -273,10 +279,65 @@ dialog {
   flex-direction: column;
   gap: 14px;
 
+  > button {
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18.9px;
+    letter-spacing: 0px;
+    color: #635fc7;
+
+    svg path {
+      fill: #635fc7;
+    }
+  }
+
   div {
     display: flex;
     align-items: center;
     gap: 12px;
+  }
+
+  .theme {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 23px;
+    background-color: #f4f7fd;
+    padding-block: 14px;
+    border-radius: 6px;
+
+    .switch {
+      appearance: none;
+      background-color: #635fc7;
+      height: 20px;
+      width: 40px;
+      display: inline-flex;
+      margin: 0;
+      border-radius: 15px;
+      box-sizing: border-box;
+      padding: 3px;
+      transition: all 0.8s ease-in-out;
+    }
+    .switch:after {
+      content: "";
+      background-color: white;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      transition: transform 0.4s cubic-bezier(0.85, 0, 0.15, 1);
+    }
+
+    .switch:checked:after {
+      transform: translateX(19px);
+    }
+  }
+
+  h3 {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 15px;
+    color: #828fa3;
+    letter-spacing: 2.4px;
   }
 }
 
@@ -323,4 +384,8 @@ dialog {
       margin-block: -32px;
     }
   }
+}
+
+.hidden-header {
+  transform: translateY(-100%);
 }
