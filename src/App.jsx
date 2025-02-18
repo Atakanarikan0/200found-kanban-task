@@ -24,13 +24,9 @@ export default function App() {
     getData();
   }, [])
 
-  function handleAddBoard() {
-    setBoards([...boards, {
-      "id": crypto.randomUUID(),
-      "name": "new",
-      "columns": []
-    }])
-  }
+  useEffect(() => {
+    setBoards(data)
+  }, [data])
 
 
 
