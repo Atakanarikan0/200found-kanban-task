@@ -9,6 +9,7 @@ export default function Header() {
   const dialogRef = useRef(null);
   const boardRef = useRef(null);
   const editRef = useRef(null)
+  const deleteRef = useRef(null)
   const [subtask, setSubtask] = useState([{ id: 1, value: "" }]);
   const [status, setStatus] = useState('Todo')
   const [editBoard, setEditBoard] = useState([])
@@ -87,6 +88,14 @@ export default function Header() {
   function handleDelete(id) {
     setSubtask(subtask.filter(x => x.id !== id))
   }
+
+  function handleDeleteBoard() {
+    setData(data.filter(x => x.id !== selectedBoardId))
+    setSelectedBoardId(null)
+    deleteRef.current.close();
+    console.log('sa')
+  }
+
 
   return (
     <>
@@ -194,13 +203,21 @@ export default function Header() {
                       </form>
                     </div> */}
                 </dialog>
-                <li><a href="#" style={{ color: 'red' }}>Delete Board</a></li>
+                <li onClick={() => deleteRef.current.showModal()}><a href="#" style={{ color: 'red' }}>Delete Board</a></li>
               </ul>
             </div>
           </div>
         </div>
 
       }
+      <div>
+        <dialog className="delete-check" ref={deleteRef}>
+          <h2 >Delete this board?</h2>
+          <p>Are you sure you want to delete the ‘Platform Launch’ board? This action will remove all columns and tasks and cannot be reversed.</p>
+          <button className="delete-btn" onClick={handleDeleteBoard}>Delete</button>
+          <button onClick={() => deleteRef.current.close()} className="cancel-btn">Cancel</button>
+        </dialog>
+      </div>
 
       <dialog ref={dialogRef} >
         <form onSubmit={handleSubmit}>
