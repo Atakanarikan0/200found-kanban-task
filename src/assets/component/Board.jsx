@@ -20,7 +20,6 @@ export default function Board({ id }) {
 
   useEffect(() => {
     setColumns(boardData?.columns);
-    setColumnCount(boardData?.columns?.length);
   }, [id])
 
   useEffect(() => {
@@ -58,18 +57,23 @@ export default function Board({ id }) {
   return (
     <>
       <ColTaskContext.Provider value={{ openModal, setCurrentTask, currentTask, boardData }}>
-        <div className="board-columns-cont" style={{
-          marginLeft: showSidebar ? 251 : 0,
-          transition: 'all 1s ease-in-out'
-        }}
-
-        >
-          {
-            columns?.map(x => <Column colData={x} key={x.id} />)
-          }
-          <button className="board-add-column-btn" onClick={() => { addNewColRef.current.showModal() }}>+ New Column</button>
-        </div>
-        <TaskDetail boardData={boardData} currentTask={currentTask} dialogRef={dialogRef} />
+        {
+          noColumn
+            ? <div className="board-no-columns" style={{
+              marginLeft: showSidebar ? 251 : 0,
+              transition: 'all 1s ease-in-out'
+            }}>
+              <p>This board is empty. Create a new column to get started.</p>
+              <button className="empty-board-add-column-btn" onClick={() => { addNewColRef.current.showModal() }}>+ Add New Column</button>
+            </div>
+            : <div className="board-columns-cont">
+              {
+                columns?.map((x, i) => <Column colData={x} key={x.id} index={i} />)
+              }
+              <button className="board-add-column-btn" onClick={() => { addNewColRef.current.showModal() }}>+ New Column</button>
+            </div>
+        }
+        <TaskDetail boardData={boardData} currentTask={currentTask} dialogRef={dialogRef} deleteTask={deleteTask} />
         <AddColumn addNewColRef={addNewColRef} id={id} />
       </ColTaskContext.Provider>
 
