@@ -67,7 +67,7 @@ export default function Board({ id }) {
           {
             columns?.map(x => <Column colData={x} key={x.id} />)
           }
-          <button className="add-column-btn" onClick={() => { addNewColRef.current.showModal() }}>+ New Column</button>
+          <button className="board-add-column-btn" onClick={() => { addNewColRef.current.showModal() }}>+ New Column</button>
         </div>
         <TaskDetail boardData={boardData} currentTask={currentTask} dialogRef={dialogRef} />
         <AddColumn addNewColRef={addNewColRef} id={id} />
