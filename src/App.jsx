@@ -2,6 +2,7 @@ import { useState, useEffect, createContext, useRef } from 'react'
 import Board from './assets/component/Board';
 import Header from './assets/component/Header';
 import AddBoard from './assets/component/AddBoard';
+import Sidebar from './assets/component/Sidebar';
 export const DataContext = createContext(null)
 
 // todo
@@ -14,6 +15,7 @@ export default function App() {
   const [boards, setBoards] = useState([])
   const addRef = useRef()
   const [screenSize, setScreenSize] = useState(window.innerWidth < 525);
+  const [showSidebar, setShowSidebar] = useState(false)
 
   useEffect(() => {
     async function getData() {
@@ -37,9 +39,9 @@ export default function App() {
 
   return (
     <>
-      <DataContext.Provider value={{ data, setData, addRef, selectedBoardId, setSelectedBoardId, boards, screenSize }}>
+      <DataContext.Provider value={{ data, setData, addRef, selectedBoardId, setSelectedBoardId, boards, screenSize, showSidebar, setShowSidebar }}>
         <Header />
-
+        {screenSize ? '' : <Sidebar />}
         <Board id={selectedBoardId} />
         <AddBoard />
       </DataContext.Provider>
