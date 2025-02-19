@@ -20,7 +20,6 @@ export default function Board({ id }) {
 
   useEffect(() => {
     setColumns(boardData?.columns);
-    setColumnCount(boardData?.columns?.length);
   }, [id])
 
   useEffect(() => {
@@ -63,7 +62,7 @@ export default function Board({ id }) {
             ? <div className="board-no-columns">
               <p>This board is empty. Create a new column to get started.</p>
               <button className="empty-board-add-column-btn" onClick={() => { addNewColRef.current.showModal() }}>+ Add New Column</button>
-            </div>
+            </div>    
             : <div className="board-columns-cont">
               {
                 columns?.map((x, i) => <Column colData={x} key={x.id} index={i} />)
