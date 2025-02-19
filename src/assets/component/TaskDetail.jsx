@@ -2,7 +2,7 @@ import { useContext, useRef } from "react";
 import { DataContext } from "../../App";
 import EditTask from "./EditTask";
 
-export default function TaskDetail({ boardData, currentTask, dialogRef }) {
+export default function TaskDetail({ boardData, currentTask, dialogRef, deleteTask }) {
   const { data } = useContext(DataContext);
   const editTaskRef = useRef();
 
@@ -36,7 +36,7 @@ export default function TaskDetail({ boardData, currentTask, dialogRef }) {
             }
           </select>
           <button onClick={() => {dialogRef.current.close(); editTaskRef.current.showModal()}}>edit task</button>
-          <button>delete task</button>
+          <button onClick={() => {dialogRef.current.close(); deleteTask();}}>delete task</button>
         </div>
       </dialog>
       <EditTask editTaskRef={editTaskRef} />

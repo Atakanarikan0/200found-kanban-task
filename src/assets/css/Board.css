@@ -2,9 +2,10 @@
 
 :root {
   --white: #fff;
-  --lightGray: #f4f7fd;
-  --medGray: #828fa3;
-  --mainPurple: #635fc7;
+  --lightGray: #F4F7FD;
+  --medGray: #828FA3;
+  --mainPurple: #635FC7;
+  --lightPurple: #A8A4FF;
 }
 
 .board-columns-cont {
@@ -79,7 +80,7 @@
   }
 }
 
-.add-column-btn {
+.board-add-column-btn {
   width: 280px;
   height: 80vh;
   margin-top: 57px;
@@ -92,13 +93,52 @@
   border-radius: 6px;
 }
 
-.add-column-btn:hover {
+.board-add-column-btn:hover {
   color: var(--mainPurple);
+}
+
+.board-add-column-btn:hover {
+  outline: none;
 }
 
 .empty-single-column {
   outline: 1px dashed rgba(130, 143, 163, 0.4);
   outline-width: 2px;
+}
+
+.hide-btn {
+  display: none;
+}
+
+.board-no-columns {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  p {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--medGray);
+    line-height: 22.68px;
+  }
+}
+
+.empty-board-add-column-btn {
+  width: 174px;
+  height: 48px;
+  font-weight: 700;
+  size: 15px;
+  line-height: 18.9px;
+  background-color: var(--mainPurple);
+  border-radius: 24px;
+  color: var(--white);
+  border: none;
+  margin-top: 20px;
+}
+
+.empty-board-add-column-btn:hover {
+  background-color: var(--lightPurple);
 }
 
 /* berna section end */
