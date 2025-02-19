@@ -1,71 +1,96 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { ColTaskContext } from "./Board"
 import { DataContext } from "../../App";
 
 export default function EditTask({ editTaskRef }) {
   const { currentTask, boardData } = useContext(ColTaskContext);
-  const { data, setData } = useContext(DataContext)
+  const { data, setData } = useContext(DataContext);
   const [subtasks, setSubtasks] = useState([]);
-  // const currentColumn = boardData.columns.find(x => x.name == currentTask.status)
-  // console.log("col",currentColumn)
+  const editTaskFormRef = useRef();
+
   useEffect(() => {
-    // setSubtasks(currentTask.subtasks ?? [0]);
-    currentTask.subtasks && setSubtasks(currentTask.subtasks.map(x => ({
-      id: x.id,
-      name: x.title
-    })))
-
-    
-  
-  console.log(subtasks)
-
-  }, [currentTask])
+    editTaskFormRef.current.reset();
+    if (currentTask?.subtasks) {
+      setSubtasks(
+        currentTask.subtasks.map((x) => ({
+          id: x.id,
+          title: x.title,
+        }))
+      );
+    }
+  }, [currentTask]);
 
   function addNewSubtask(e) {
     e.preventDefault();
     const newSubtask = {
       id: crypto.randomUUID(),
-      name: ""
-    }
-    setSubtasks([...subtasks, newSubtask])
-    console.log(subtasks)
+      title: '',
+      isCompleted: false,
+    };
+    setSubtasks([...subtasks, newSubtask]);
   }
 
   function handleSubtaskSubmit(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
     const formObj = Object.fromEntries(formData);
-    console.log(formObj)
 
-    const updatedSubtasks = subtasks.map(st => ({
-      name: formObj[`subtask-${st.id}`],
-      isCompleted: false
+    const updatedSubtasks = subtasks.map((st) => ({
+        id: st.id,
+        title: formObj[`subtask-${st.id}`] || st.title, 
+        isCompleted: st.isCompleted,
     }));
 
-    // const updatedTask = boardData.columns.map(column => 
-    //   column.name == currentTask.status
-    //   ? {...column, tasks: updatedSubtasks}
-    //   : column
-    // )
+    setSubtasks(updatedSubtasks); 
 
     const updatedTask = {
-      
-    }
+        ...currentTask,
+        title: formObj.title,
+        description: formObj.description,
+        status: formObj.status,
+        subtasks: updatedSubtasks,
+    };
 
-    setData(updatedTask)
+    const updatedBoardData = data.map((board) =>
+        board.id === boardData.id
+            ? {
+                ...board,
+                columns: board.columns.map((column) =>
+                    column.name === currentTask.status
+                        ? {
+                            ...column,
+                            tasks: column.tasks.map((task) =>
+                                task.id === currentTask.id ? updatedTask : task
+                            ),
+                        }
+                        : column
+                ),
+            }
+            : board
+    );
+
+    setData(updatedBoardData);
     editTaskRef.current.close();
+}
 
 
+  function handleSubtasksChange(id, e) {
+    const updatedSubtasks = subtasks.map((subtask) =>
+      subtask.id === id ? { ...subtask, title: e.target.value } : subtask
+    );
+    setSubtasks(updatedSubtasks);
   }
 
-
+  function handleDelete(id) {
+    setSubtasks(subtasks.filter((x) => x.id !== id));
+  }
 
   const columns = boardData?.columns;
 
   return (
     <>
       <dialog ref={editTaskRef}>
-        <form onSubmit={handleSubtaskSubmit}>
+        <form ref={editTaskFormRef} onSubmit={handleSubtaskSubmit}>
           <p>Title</p>
           <input type="text" name="title" defaultValue={currentTask?.title} />
           <p>Description</p>
@@ -77,8 +102,9 @@ export default function EditTask({ editTaskRef }) {
                 <input 
                 type="text" 
                 name={`subtask-${x.id ?? crypto.randomUUID()}`}
-                defaultValue={x.name} />
-                <button type="button">X</button>
+                defaultValue={x.title}
+                onChange={(e) => handleSubtasksChange(x.id, e)} />
+                <button onClick={() => handleDelete(x.id)} type="button">X</button>
                 </div>)
             }
             
