@@ -11,7 +11,7 @@ export const ColTaskContext = createContext();
 export default function Board({ id }) {
   const addNewColRef = useRef();
   const dialogRef = useRef();
-  const { data } = useContext(DataContext);
+  const { data, showSidebar, setShowSidebar } = useContext(DataContext);
   const [currentTask, setCurrentTask] = useState({});
   const boardData = data.find(x => x.id == id); // useEffect içinde daha mı iyi olur diye sor
   const [columns, setColumns] = useState([]);
@@ -31,7 +31,12 @@ export default function Board({ id }) {
   return (
     <>
       <ColTaskContext.Provider value={{ openModal, setCurrentTask, currentTask, boardData }}>
-        <div className="board-columns-cont">
+        <div className="board-columns-cont" style={{
+          marginLeft: showSidebar ? 251 : 0,
+          transition: 'all 1s ease-in-out'
+        }}
+
+        >
           {
             columns?.map(x => <Column colData={x} key={x.id} />)
           }

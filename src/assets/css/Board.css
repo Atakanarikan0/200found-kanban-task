@@ -2,9 +2,9 @@
 
 :root {
   --white: #fff;
-  --lightGray: #F4F7FD;
-  --medGray: #828FA3;
-  --mainPurple: #635FC7;
+  --lightGray: #f4f7fd;
+  --medGray: #828fa3;
+  --mainPurple: #635fc7;
 }
 
 .board-columns-cont {
@@ -26,7 +26,6 @@
     min-height: 80vh;
     border-radius: 8px;
   }
-
 }
 
 .single-task-item {
@@ -40,9 +39,10 @@
   align-items: start;
   justify-content: center;
   border-radius: 8px;
-  box-shadow: 0px 4px 6px #364E7E1A;
+  box-shadow: 0px 4px 6px #364e7e1a;
   padding-left: 20px;
   cursor: pointer;
+  transition: box-shadow 0.3s ease-in-out; /* Geçiş efekti */
 
   h4 {
     font-size: 15px;
@@ -61,6 +61,10 @@
   h4 {
     color: var(--mainPurple);
   }
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
+    rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  transform: scale(1.05);
 }
 
 .column-header {
@@ -81,7 +85,7 @@
   margin-top: 57px;
   border: none;
   flex-shrink: 0;
-  background-image: linear-gradient(#E9EFFA, #E9EFFA80);
+  background-image: linear-gradient(#e9effa, #e9effa80);
   color: var(--medGray);
   font-size: 24px;
   font-weight: 700;
@@ -90,12 +94,30 @@
 
 .add-column-btn:hover {
   color: var(--mainPurple);
-
 }
 
 .empty-single-column {
-  outline: 1px dashed rgba(130,143,163,.4);
+  outline: 1px dashed rgba(130, 143, 163, 0.4);
   outline-width: 2px;
 }
 
 /* berna section end */
+
+.board-columns-cont::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+
+.board-columns-cont::-webkit-scrollbar-thumb {
+  background-color: #828fa3;
+  border-radius: 10px;
+}
+
+.board-columns-cont::-webkit-scrollbar-track {
+  background-color: #aaacb1;
+  border-radius: 10px;
+}
+
+.board-columns-cont::-webkit-scrollbar-thumb:hover {
+  background-color: #635fc7;
+}
