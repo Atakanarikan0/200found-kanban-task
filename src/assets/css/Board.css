@@ -83,7 +83,7 @@
 .board-add-column-btn {
   width: 280px;
   height: 80vh;
-  margin-top: 57px;
+  margin-top: 48px;
   border: none;
   flex-shrink: 0;
   background-image: linear-gradient(#e9effa, #e9effa80);
@@ -160,4 +160,13 @@
 
 .board-columns-cont::-webkit-scrollbar-thumb:hover {
   background-color: #635fc7;
+}
+
+
+@media screen and (min-width:525px) {
+  .column-header {
+    h3 {
+      font-size: 12px;
+    }
+  }
 }

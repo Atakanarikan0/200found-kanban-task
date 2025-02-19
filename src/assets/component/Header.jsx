@@ -3,7 +3,7 @@ import { DataContext } from "../../App";
 import '../css/header.css';
 
 export default function Header() {
-  const { data, setData, selectedBoardId, setSelectedBoardId, boards, addRef, screenSize, showSidebar, setShowSidebar } = useContext(DataContext)
+  const { data, setData, selectedBoardId, setSelectedBoardId, boards, addRef, screenSize, addNewColRef } = useContext(DataContext)
   const [isActive, setIsActive] = useState(false)
   const [isDown, setIsDown] = useState(false)
   const dialogRef = useRef(null);
@@ -100,7 +100,7 @@ export default function Header() {
   return (
     <>
       {screenSize ?
-        <div className={`header ${hidden ? "hidden-header" : ""}`} >
+        <div className={`header ${hidden ? "hidden-header" : ""}`}>
           <img src="/img/logo-mobil.svg" alt="" />
           <div className={isDown ? 'arrow-up' : 'header-launch'}>
             <h1 onClick={handleNav}>Platform Launch</h1>
@@ -137,7 +137,7 @@ export default function Header() {
               <p className={isActive ? 'cross active' : 'cross'}>x</p>
               <figure className={isActive ? 'active' : ""}></figure>
               <ul className={isActive ? 'dropdown active' : 'dropdown'}>
-                <li><a href="#" onClick={() => editRef.current.showModal()}>Edit Board</a></li>
+                <li><a href="#" onClick={() => { console.log("yo"); addNewColRef.current.showModal() }}>Edit Board</a></li>
                 <dialog ref={editRef}>
                   {/* <div>
                   <h4>Add New Board</h4>
@@ -163,15 +163,11 @@ export default function Header() {
             </div>
           </div>
         </div> :
-        <div className={`header ${hidden ? "hidden-header" : ""}`} >
+        <div className={`header ${hidden ? "hidden-header" : ""}`}>
           <img src="/img/logo-desktop-light.png" alt="" />
           <hr />
           <div className="board-name">
-            <h1 style={{
-              marginLeft: showSidebar ? 56 : 0,
-              transition: 'all 1s ease-in-out'
-            }}
-            >{data.find(x => x.id === selectedBoardId)?.name}</h1>
+            <h1>{data.find(x => x.id === selectedBoardId)?.name}</h1>
           </div>
 
           <div>

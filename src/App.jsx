@@ -3,6 +3,7 @@ import Board from './assets/component/Board';
 import Header from './assets/component/Header';
 import AddBoard from './assets/component/AddBoard';
 import Sidebar from './assets/component/Sidebar';
+import AddColumn from './assets/component/AddColumn';
 export const DataContext = createContext(null)
 
 // todo
@@ -10,6 +11,7 @@ export const DataContext = createContext(null)
 // css & responsive
 
 export default function App() {
+  const addNewColRef = useRef();
   const [data, setData] = useState([]);
   const [selectedBoardId, setSelectedBoardId] = useState();
   const [boards, setBoards] = useState([])
@@ -39,11 +41,12 @@ export default function App() {
 
   return (
     <>
-      <DataContext.Provider value={{ data, setData, addRef, selectedBoardId, setSelectedBoardId, boards, screenSize, showSidebar, setShowSidebar }}>
+      <DataContext.Provider value={{ data, setData, addRef, selectedBoardId, setSelectedBoardId, boards, screenSize, showSidebar, setShowSidebar, addNewColRef }}>
         <Header />
         {screenSize ? '' : <Sidebar />}
         <Board id={selectedBoardId} />
         <AddBoard />
+        <AddColumn addNewColRef={addNewColRef} id={selectedBoardId} />
       </DataContext.Provider>
     </>
   )

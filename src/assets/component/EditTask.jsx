@@ -36,42 +36,42 @@ export default function EditTask({ editTaskRef }) {
     const formObj = Object.fromEntries(formData);
 
     const updatedSubtasks = subtasks.map((st) => ({
-        id: st.id,
-        title: formObj[`subtask-${st.id}`] || st.title, 
-        isCompleted: st.isCompleted,
+      id: st.id,
+      title: formObj[`subtask-${st.id}`] || st.title,
+      isCompleted: st.isCompleted,
     }));
 
-    setSubtasks(updatedSubtasks); 
+    setSubtasks(updatedSubtasks);
 
     const updatedTask = {
-        ...currentTask,
-        title: formObj.title,
-        description: formObj.description,
-        status: formObj.status,
-        subtasks: updatedSubtasks,
+      ...currentTask,
+      title: formObj.title,
+      description: formObj.description,
+      status: formObj.status,
+      subtasks: updatedSubtasks,
     };
 
     const updatedBoardData = data.map((board) =>
-        board.id === boardData.id
-            ? {
-                ...board,
-                columns: board.columns.map((column) =>
-                    column.name === currentTask.status
-                        ? {
-                            ...column,
-                            tasks: column.tasks.map((task) =>
-                                task.id === currentTask.id ? updatedTask : task
-                            ),
-                        }
-                        : column
+      board.id === boardData.id
+        ? {
+          ...board,
+          columns: board.columns.map((column) =>
+            column.name === currentTask.status
+              ? {
+                ...column,
+                tasks: column.tasks.map((task) =>
+                  task.id === currentTask.id ? updatedTask : task
                 ),
-            }
-            : board
+              }
+              : column
+          ),
+        }
+        : board
     );
 
     setData(updatedBoardData);
     editTaskRef.current.close();
-}
+  }
 
 
   function handleSubtasksChange(id, e) {
@@ -99,15 +99,15 @@ export default function EditTask({ editTaskRef }) {
           <div className="edit-task-subtasks">
             {
               subtasks.map(x => <div>
-                <input 
-                type="text" 
-                name={`subtask-${x.id ?? crypto.randomUUID()}`}
-                defaultValue={x.title}
-                onChange={(e) => handleSubtasksChange(x.id, e)} />
+                <input
+                  type="text"
+                  name={`subtask-${x.id ?? crypto.randomUUID()}`}
+                  defaultValue={x.title}
+                  onChange={(e) => handleSubtasksChange(x.id, e)} />
                 <button onClick={() => handleDelete(x.id)} type="button">X</button>
-                </div>)
+              </div>)
             }
-            
+
           </div>
           <button type="button" onClick={(e) => addNewSubtask(e)}>+ Add New Subtask</button>
           <p>Status</p>

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { DataContext } from "../../App";
 
-export default function AddColumn({ addNewColRef, id }) {
+export default function AddColumn({ addNewColRef, id, type }) {
   const [inputId, setInputId] = useState(0);
   const [inputs, setInputs] = useState([]);
   const { data, setData } = useContext(DataContext);
