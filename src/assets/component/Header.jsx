@@ -93,7 +93,7 @@ export default function Header() {
     setData(data.filter(x => x.id !== selectedBoardId))
     setSelectedBoardId(null)
     deleteRef.current.close();
-    console.log('sa')
+
   }
 
 
