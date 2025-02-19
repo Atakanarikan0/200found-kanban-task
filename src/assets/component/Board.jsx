@@ -9,9 +9,8 @@ import './../css/Board.css'
 export const ColTaskContext = createContext();
 
 export default function Board({ id }) {
-  const addNewColRef = useRef();
   const dialogRef = useRef();
-  const { data, showSidebar, setShowSidebar } = useContext(DataContext);
+  const { data, showSidebar, setShowSidebar, setData, addNewColRef } = useContext(DataContext);
   const [currentTask, setCurrentTask] = useState({});
   const boardData = data.find(x => x.id == id); // useEffect içinde daha mı iyi olur diye sor
   const [columns, setColumns] = useState([]);
@@ -78,7 +77,6 @@ export default function Board({ id }) {
             </div>
         }
         <TaskDetail boardData={boardData} currentTask={currentTask} dialogRef={dialogRef} deleteTask={deleteTask} />
-        <AddColumn addNewColRef={addNewColRef} id={id} />
       </ColTaskContext.Provider>
 
     </>
