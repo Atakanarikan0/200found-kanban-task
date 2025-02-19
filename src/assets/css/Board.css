@@ -5,6 +5,7 @@
   --lightGray: #F4F7FD;
   --medGray: #828FA3;
   --mainPurple: #635FC7;
+  --lightPurple: #A8A4FF;
 }
 
 .board-columns-cont {
@@ -126,6 +127,10 @@
   color: var(--white);
   border: none;
   margin-top: 20px;
+}
+
+.empty-board-add-column-btn:hover {
+  background-color: var(--lightPurple);
 }
 
 /* berna section end */
