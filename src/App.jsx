@@ -18,6 +18,8 @@ export default function App() {
   const addRef = useRef()
   const [screenSize, setScreenSize] = useState(window.innerWidth < 525);
   const [showSidebar, setShowSidebar] = useState(false)
+  const [isEdit, setIsEdit] = useState(false)
+
 
   useEffect(() => {
     async function getData() {
@@ -75,7 +77,7 @@ export default function App() {
 
   return (
     <>
-      <DataContext.Provider value={{ data, setData, addRef, selectedBoardId, setSelectedBoardId, boards, screenSize, showSidebar, setShowSidebar, updateTaskStatus, addNewColRef }}>
+      <DataContext.Provider value={{ data, setData, addRef, selectedBoardId, setSelectedBoardId, boards, screenSize, showSidebar, setShowSidebar, updateTaskStatus, addNewColRef, isEdit, setIsEdit }}>
         <Header />
         {screenSize ? '' : <Sidebar />}
         <Board id={selectedBoardId} />

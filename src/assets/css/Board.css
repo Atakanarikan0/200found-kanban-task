@@ -2,10 +2,10 @@
 
 :root {
   --white: #fff;
-  --lightGray: #F4F7FD;
-  --medGray: #828FA3;
-  --mainPurple: #635FC7;
-  --lightPurple: #A8A4FF;
+  --lightGray: #f4f7fd;
+  --medGray: #828fa3;
+  --mainPurple: #635fc7;
+  --lightPurple: #a8a4ff;
 }
 
 .board-columns-cont {
@@ -97,7 +97,7 @@
   color: var(--mainPurple);
 }
 
-.board-add-column-btn:hover {
+.board-add-column-btn:focus {
   outline: none;
 }
 
@@ -162,8 +162,7 @@
   background-color: #635fc7;
 }
 
-
-@media screen and (min-width:525px) {
+@media screen and (min-width: 525px) {
   .column-header {
     h3 {
       font-size: 12px;

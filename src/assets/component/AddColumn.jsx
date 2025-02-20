@@ -4,7 +4,7 @@ import { DataContext } from "../../App";
 export default function AddColumn({ addNewColRef, id, type }) {
   const [inputId, setInputId] = useState(0);
   const [inputs, setInputs] = useState([]);
-  const { data, setData } = useContext(DataContext);
+  const { data, setData, isEdit, setIsEdit } = useContext(DataContext);
   const boardData = data.find((x) => x.id == id); // useEffect içinde daha mı iyi olur diye sor
   const resetRef = useRef();
 
@@ -40,7 +40,7 @@ export default function AddColumn({ addNewColRef, id, type }) {
 
     const updatedData = data.map((board) =>
       board.id === id
-        ? { ...board, columns: updatedColumns }
+        ? { ...board, name: formObj.name, columns: updatedColumns }
         : board
     );
 
@@ -49,15 +49,22 @@ export default function AddColumn({ addNewColRef, id, type }) {
     resetRef.current.reset();
   }
 
+  function handleDelete(id) {
+    setInputs(inputs.filter(x => x.id !== id))
+  }
+
+
+
+
   return (
     <>
       <dialog ref={addNewColRef} className="add-column">
         <div>
-          <h4>Add New Column</h4>
+          <h4>{!isEdit ? 'Add new Column' : 'Edit Board'}</h4>
           <form ref={resetRef} onSubmit={handleColumnSubmit}>
-            <legend>Name</legend>
+            <legend>Board Name</legend>
             <input
-              disabled
+              disabled={!isEdit}
               type="text"
               name="name"
               defaultValue={boardData?.name}
@@ -65,12 +72,19 @@ export default function AddColumn({ addNewColRef, id, type }) {
             />
             <legend>Columns</legend>
             {inputs.map((input) => (
-              <input
-                key={input.id}
-                type="text"
-                defaultValue={input.name}
-                name={`columnName${input.id}`}
-              />
+              <div className="columnn-area">
+                <input
+                  key={input.id}
+                  type="text"
+                  defaultValue={input.name}
+                  required
+                  name={`columnName${input.id}`}
+                />
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" onClick={() => handleDelete(input.id)} xmlns="http://www.w3.org/2000/svg">
+                  <rect x="12.7279" width="3" height="18" transform="rotate(45 12.7279 0)" fill="#828FA3" />
+                  <rect y="2.12109" width="3" height="18" transform="rotate(-45 0 2.12109)" fill="#828FA3" />
+                </svg>
+              </div>
             ))}
             <button onClick={addNewColumnInput} className="addNewColumnBtn">+ Add New Column</button>
             <button type="submit" className="saveChBtn">Save Changes</button>

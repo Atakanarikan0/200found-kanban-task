@@ -9,7 +9,7 @@ export const ColTaskContext = createContext();
 
 export default function Board({ id }) {
   const dialogRef = useRef();
-  const { data, showSidebar, setData, addNewColRef, screenSize } = useContext(DataContext);
+  const { data, showSidebar, setData, addNewColRef, screenSize, isEdit, setIsEdit } = useContext(DataContext);
   const [currentTask, setCurrentTask] = useState({});
   const boardData = data.find(x => x.id == id); // useEffect içinde daha mı iyi olur diye sor
   const [columns, setColumns] = useState([]);
@@ -64,14 +64,14 @@ export default function Board({ id }) {
               <p>This board is empty. Create a new column to get started.</p>
               <button className="empty-board-add-column-btn" onClick={() => { addNewColRef.current.showModal() }}>+ Add New Column</button>
             </div>
-            : <div className="board-columns-cont"  style={{
-              marginLeft: screenSize ?  0 : showSidebar ? 251 : 0,
+            : <div className="board-columns-cont" style={{
+              marginLeft: screenSize ? 0 : showSidebar ? 251 : 0,
               transition: 'all 1s ease-in-out'
             }}>
               {
                 columns?.map((x, i) => <Column colData={x} key={x.id} index={i} />)
               }
-              <button className="board-add-column-btn" onClick={() => { addNewColRef.current.showModal() }}>+ New Column</button>
+              <button className="board-add-column-btn" onClick={() => { addNewColRef.current.showModal(); setIsEdit(false) }}>+ New Column</button>
             </div>
         }
         <TaskDetail boardData={boardData} currentTask={currentTask} dialogRef={dialogRef} deleteTask={deleteTask} />
