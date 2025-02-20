@@ -3,13 +3,17 @@ import { useContext } from "react";
 import '../css/sidebar.css';
 
 export default function Sidebar() {
-  const { data, selectedBoardId, setSelectedBoardId, boards, addRef, showSidebar, setShowSidebar } = useContext(DataContext)
+  const { data, selectedBoardId, setSelectedBoardId, boards, addRef, showSidebar, setShowSidebar, handleThemeChange, theme } = useContext(DataContext)
 
   return (
     <>
       {showSidebar ?
         <div className="sidebar">
-          <img src="/img/logo-desktop-light.png" alt="" />
+          {
+            theme == "dark"
+            ? <img src="/img/logo-desktop-dark.png" alt="" />
+            : <img src="/img/logo-desktop-light.png" alt="" />
+          }
           <div className="sidebar-content">
             <h3>ALL BOARDS({data.length})</h3>
             {boards?.map(x => (
@@ -32,7 +36,7 @@ export default function Sidebar() {
           <div>
             <div className="theme">
               <img src="/img/sun-icon.svg" alt="" />
-              <input type="checkbox" name="" id="" className="switch" />
+              <input type="checkbox" onChange={handleThemeChange} name="" id="" className="switch" />
               <img src="/img/moon-icon.svg" alt="" />
 
             </div>

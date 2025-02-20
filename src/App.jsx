@@ -6,18 +6,28 @@ import Sidebar from './assets/component/Sidebar';
 import AddColumn from './assets/component/AddColumn';
 export const DataContext = createContext(null)
 
-// todo
-// task add/edit dialogları/componentleri
-// css & responsive
+function getSystemThemePref() {
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
 
 export default function App() {
   const addNewColRef = useRef();
   const [data, setData] = useState([]);
   const [selectedBoardId, setSelectedBoardId] = useState();
-  const [boards, setBoards] = useState([])
-  const addRef = useRef()
+  const [boards, setBoards] = useState([]);
+  const addRef = useRef();
   const [screenSize, setScreenSize] = useState(window.innerWidth < 525);
-  const [showSidebar, setShowSidebar] = useState(false)
+  const [showSidebar, setShowSidebar] = useState(false);
+  const [theme, setTheme] = useState(localStorage.theme || getSystemThemePref());
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }, [theme]);
+  
   const [isEdit, setIsEdit] = useState(false)
 
 
@@ -38,6 +48,13 @@ export default function App() {
   useEffect(() => {
     window.addEventListener("resize", () => setScreenSize(window.innerWidth < 525));
   }, [])
+
+  function handleThemeChange(e) {
+    const changedTheme = e.target.checked ? 'dark' : 'light';
+    setTheme(changedTheme);
+    localStorage.setItem('theme', changedTheme);
+  }
+  
 
 
   function updateTaskStatus(boardId, taskId, newStatus) {
@@ -77,7 +94,7 @@ export default function App() {
 
   return (
     <>
-      <DataContext.Provider value={{ data, setData, addRef, selectedBoardId, setSelectedBoardId, boards, screenSize, showSidebar, setShowSidebar, updateTaskStatus, addNewColRef, isEdit, setIsEdit }}>
+      <DataContext.Provider value={{ data, setData, addRef, selectedBoardId, setSelectedBoardId, boards, screenSize, showSidebar, setShowSidebar, updateTaskStatus, addNewColRef, handleThemeChange, theme, isEdit, setIsEdit }}>
         <Header />
         {screenSize ? '' : <Sidebar />}
         <Board id={selectedBoardId} />
