@@ -1,11 +1,12 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { DataContext } from "../../App";
 import EditTask from "./EditTask";
 import "../css/dialogs.css"
 
 export default function TaskDetail({ boardData, currentTask, dialogRef, deleteTask }) {
   const { data, updateTaskStatus } = useContext(DataContext);
-
+  const [increase, setIncrease] = useState(0)
+  const [clicked, setClicked] = useState(false)
   const editTaskRef = useRef();
   const [isActive, setIsActive] = useState(false) // headerdaki state tekrar olusturuldu
 
@@ -13,6 +14,20 @@ export default function TaskDetail({ boardData, currentTask, dialogRef, deleteTa
     const newStatus = e.target.value;
     updateTaskStatus(boardData.id, currentTask.id, newStatus);
     dialogRef.current.close();
+  }
+
+  useEffect(() => {
+
+    setIncrease(currentTask?.subtasks?.filter(z => z?.isCompleted).length);
+  }, [currentTask?.subtasks]);
+
+
+
+
+  function handleSubtaskChange(e, subtask) {
+    subtask.isCompleted = e.target.checked;
+    const completedSubtasks = currentTask.subtasks.filter(subtask => subtask.isCompleted).length;
+    setIncrease(completedSubtasks);
   }
 
   function toggleMenu() {
@@ -39,11 +54,12 @@ export default function TaskDetail({ boardData, currentTask, dialogRef, deleteTa
             <h3>{currentTask?.title}</h3>
           </div>
           <p className="input-description" >{currentTask?.description}</p>
-          <p className="input-subtasks" >{currentTask?.subtasks?.filter(z => z?.isCompleted == true).length} of {currentTask?.subtasks?.length} subtasks</p>
+          <p className="input-subtasks" >{increase} of {currentTask?.subtasks?.length} subtasks</p>
           <div className="checkbox-subtasks" >
             {currentTask?.subtasks?.map(x => (
               <label key={x.title}>
-                <input type="checkbox" defaultChecked={x.isCompleted} />
+                <input type="checkbox" onChange={(e) => handleSubtaskChange(e, x)} // Handle subtask change
+                  checked={x.isCompleted} />
                 {x.title}
               </label>
             ))}
