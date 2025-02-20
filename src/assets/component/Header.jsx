@@ -102,10 +102,7 @@ export default function Header() {
         <div className={`header ${hidden ? "hidden-header" : ""}`}>
           <img src="/img/logo-mobil.svg" alt="" />
           <div className={isDown ? 'arrow-up' : 'header-launch'}>
-            <h1 onClick={handleNav} style={{
-              marginLeft: showSidebar ? 56 : 0,
-              transition: 'all 1s ease-in-out'
-            }}>Platform Launch</h1>
+            <h1 onClick={handleNav} >Platform Launch</h1>
             <dialog ref={boardRef} className="nav-ref">
               <div className="nav-ref-content">
                 <h3>ALL BOARDS({data.length})</h3>
@@ -176,7 +173,7 @@ export default function Header() {
           </div>
 
           <div>
-            <span className={data.find(x => x.id === selectedBoardId)?.columns?.length > 0 ? 'empty-task' : ''} onClick={handleTask}><img src="/img/plus-icon.svg" alt="" /> Add New Task</span>
+            <span className={!data.find(x => x.id === selectedBoardId)?.columns.length > 0 && 'empty-task'} onClick={handleTask}><img src="/img/plus-icon.svg" alt="" /> Add New Task</span>
             <div className="kebab" onClick={toggleMenu}>
               <figure className={isActive ? 'active' : ""}></figure>
               <figure className={isActive ? 'middle active' : 'middle'}></figure>
@@ -209,7 +206,6 @@ export default function Header() {
             </div>
           </div>
         </div>
-
       }
       <div>
         <dialog className="delete-check" ref={deleteRef}>

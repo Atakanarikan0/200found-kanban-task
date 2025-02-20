@@ -1,9 +1,9 @@
 import { DataContext } from "../../App";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext } from "react";
 import '../css/sidebar.css';
 
 export default function Sidebar() {
-  const { data, setData, selectedBoardId, setSelectedBoardId, boards, addRef, screenSize, showSidebar, setShowSidebar } = useContext(DataContext)
+  const { data, selectedBoardId, setSelectedBoardId, boards, addRef, showSidebar, setShowSidebar } = useContext(DataContext)
 
   return (
     <>

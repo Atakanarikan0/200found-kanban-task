@@ -2,7 +2,6 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { DataContext } from "../../App";
 import TaskDetail from "./TaskDetail";
 import Column from "./Column";
-import AddColumn from "./AddColumn";
 
 import './../css/Board.css'
 
@@ -10,11 +9,10 @@ export const ColTaskContext = createContext();
 
 export default function Board({ id }) {
   const dialogRef = useRef();
-  const { data, showSidebar, setShowSidebar, setData, addNewColRef } = useContext(DataContext);
+  const { data, showSidebar, setData, addNewColRef, screenSize } = useContext(DataContext);
   const [currentTask, setCurrentTask] = useState({});
   const boardData = data.find(x => x.id == id); // useEffect içinde daha mı iyi olur diye sor
   const [columns, setColumns] = useState([]);
-  const [columnCount, setColumnCount] = useState(0);
   const [noColumn, setNoColumn] = useState(false);
 
   useEffect(() => {
@@ -67,7 +65,7 @@ export default function Board({ id }) {
               <button className="empty-board-add-column-btn" onClick={() => { addNewColRef.current.showModal() }}>+ Add New Column</button>
             </div>
             : <div className="board-columns-cont"  style={{
-              marginLeft: showSidebar ? 251 : 0,
+              marginLeft: screenSize ?  0 : showSidebar ? 251 : 0,
               transition: 'all 1s ease-in-out'
             }}>
               {
