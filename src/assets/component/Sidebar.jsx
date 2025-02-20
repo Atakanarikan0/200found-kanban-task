@@ -36,9 +36,8 @@ export default function Sidebar() {
           <div>
             <div className="theme">
               <img src="/img/sun-icon.svg" alt="" />
-              <input type="checkbox" onChange={handleThemeChange} name="" id="" className="switch" />
+              <input type="checkbox" defaultChecked={theme === "dark"} onChange={handleThemeChange} name="" id="" className="switch" />
               <img src="/img/moon-icon.svg" alt="" />
-
             </div>
             <div className="hidden-sidebar" onClick={() => setShowSidebar(!showSidebar)}>
               <img src="/img/hide-eye-icon.svg" alt="" />
