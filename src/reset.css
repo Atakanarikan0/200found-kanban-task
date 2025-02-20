@@ -143,13 +143,16 @@ ul.dropdown {
   border-radius: 8px;
 }
 
+
 .dark {
-  
   background-color: var(--veryDarkGray);
+  transform: none !important;
+  transition: none !important;
+  
   
   .board-columns-cont,
   html {
-    background-color: var(--veryDarkGray);
+    background-color: transparent;
   }
 
   .column-header {
@@ -247,9 +250,6 @@ ul.dropdown {
   select {
     border-radius: 1px;
   }
-
-
-
 }
 
 /* berna end */

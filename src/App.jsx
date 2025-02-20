@@ -28,6 +28,8 @@ export default function App() {
     }
   }, [theme]);
   
+  const [isEdit, setIsEdit] = useState(false)
+
 
   useEffect(() => {
     async function getData() {
@@ -92,7 +94,7 @@ export default function App() {
 
   return (
     <>
-      <DataContext.Provider value={{ data, setData, addRef, selectedBoardId, setSelectedBoardId, boards, screenSize, showSidebar, setShowSidebar, updateTaskStatus, addNewColRef, handleThemeChange, theme }}>
+      <DataContext.Provider value={{ data, setData, addRef, selectedBoardId, setSelectedBoardId, boards, screenSize, showSidebar, setShowSidebar, updateTaskStatus, addNewColRef, handleThemeChange, theme, isEdit, setIsEdit }}>
         <Header />
         {screenSize ? '' : <Sidebar />}
         <Board id={selectedBoardId} />

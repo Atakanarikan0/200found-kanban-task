@@ -3,12 +3,11 @@ import { DataContext } from "../../App";
 import '../css/header.css';
 
 export default function Header() {
-  const { data, setData, selectedBoardId, setSelectedBoardId, boards, addRef, screenSize, addNewColRef, showSidebar, theme } = useContext(DataContext)
+  const { data, setData, selectedBoardId, setSelectedBoardId, boards, addRef, screenSize, addNewColRef, showSidebar, isEdit, setIsEdit, theme } = useContext(DataContext)
   const [isActive, setIsActive] = useState(false)
   const [isDown, setIsDown] = useState(false)
   const dialogRef = useRef(null);
   const boardRef = useRef(null);
-  const editRef = useRef(null)
   const deleteRef = useRef(null)
   const [subtask, setSubtask] = useState([{ id: 1, value: "" }]);
   const [status, setStatus] = useState('Todo')
@@ -96,6 +95,8 @@ export default function Header() {
   }
 
 
+
+
   return (
     <>
       {screenSize ?
@@ -140,27 +141,8 @@ export default function Header() {
               <p className={isActive ? 'cross active' : 'cross'}>x</p>
               <figure className={isActive ? 'active' : ""}></figure>
               <ul className={isActive ? 'dropdown active' : 'dropdown'}>
-                <li><a href="#" onClick={() => { console.log("yo"); addNewColRef.current.showModal() }}>Edit Board</a></li>
-                <dialog ref={editRef}>
-                  {/* <div>
-                  <h4>Add New Board</h4>
-                  <form onSubmit={(e) => handleBoardSubmit(e)}>
-                    <legend>Name</legend>
-                    <input type="text" name="name" defaultValue="aaa" placeholder="e.g. Web Design" />
-                    <legend>Columns</legend>
-                    {
-                      inputs.map(x =>
-                        <input
-                          key={x.id}
-                          type="text"
-                          defaultValue="bbb"
-                          name={`columnName${x}`} />)
-                    }
-                    <button onClick={addNewColumnInput}>+ Add New Column</button>
-                    <button type="submit">Create New Board</button>
-                  </form>
-                </div> */}
-                </dialog>
+                <li><a href="#" onClick={() => { addNewColRef.current.showModal(); setIsEdit(true) }}>Edit Board</a></li>
+
                 <li><a href="#" style={{ color: 'red' }}>Delete Board</a></li>
               </ul>
             </div>
@@ -188,27 +170,8 @@ export default function Header() {
               <p className={isActive ? 'cross active' : 'cross'}>x</p>
               <figure className={isActive ? 'active' : ""}></figure>
               <ul className={isActive ? 'dropdown active' : 'dropdown'}>
-                <li><a href="#" onClick={() => editRef.current.showModal()}>Edit Board</a></li>
-                <dialog ref={editRef}>
-                  {/* <div>
-                      <h4>Add New Board</h4>
-                      <form onSubmit={(e) => handleBoardSubmit(e)}>
-                        <legend>Name</legend>
-                        <input type="text" name="name" defaultValue="aaa" placeholder="e.g. Web Design" />
-                        <legend>Columns</legend>
-                        {
-                          inputs.map(x =>
-                            <input
-                              key={x.id}
-                              type="text"
-                              defaultValue="bbb"
-                              name={`columnName${x}`} />)
-                        }
-                        <button onClick={addNewColumnInput}>+ Add New Column</button>
-                        <button type="submit">Create New Board</button>
-                      </form>
-                    </div> */}
-                </dialog>
+                <li><a href="#" onClick={() => { addNewColRef.current.showModal(); setIsEdit(true) }}>Edit Board</a></li>
+
                 <li onClick={() => deleteRef.current.showModal()}><a href="#" style={{ color: 'red' }}>Delete Board</a></li>
               </ul>
             </div>
@@ -234,13 +197,13 @@ export default function Header() {
           <label>Substasks</label>
           {subtask.map(x => (
             <div className="subtask" key={x.id}>
-              <input type="text" value={x.value} placeholder="e.g. Make coffee"  onChange={(e) => handleSubtasksChange(x.id, e)} />
+              <input type="text" value={x.value} placeholder="e.g. Make coffee" onChange={(e) => handleSubtasksChange(x.id, e)} />
               <svg width="15" height="15" viewBox="0 0 15 15" fill="none" onClick={() => handleDelete(x.id)} xmlns="http://www.w3.org/2000/svg">
-                <rect x="12.7279" width="3" height="18" transform="rotate(45 12.7279 0)" fill="#828FA3"/>
-                <rect y="2.12109" width="3" height="18" transform="rotate(-45 0 2.12109)" fill="#828FA3"/>
+                <rect x="12.7279" width="3" height="18" transform="rotate(45 12.7279 0)" fill="#828FA3" />
+                <rect y="2.12109" width="3" height="18" transform="rotate(-45 0 2.12109)" fill="#828FA3" />
               </svg>
 
-              {/* <img src='/img/delete-icon.svg' onClick={() => handleDelete(x.id)} alt="" /> */}
+
             </div>
           ))}
 

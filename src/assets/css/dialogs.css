@@ -248,3 +248,17 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.columnn-area {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+
+  svg {
+    cursor: pointer;
+  }
+
+  svg:hover rect {
+    fill: #ea5555;
+  }
+}
