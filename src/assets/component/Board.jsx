@@ -19,7 +19,7 @@ export default function Board({ id }) {
 
   useEffect(() => {
     setColumns(boardData?.columns);
-  }, [id])
+  }, [id, data])
 
   useEffect(() => {
     boardData?.columns?.length > 0 ? setNoColumn(false) : setNoColumn(true)
@@ -57,7 +57,7 @@ export default function Board({ id }) {
     <>
       <ColTaskContext.Provider value={{ openModal, setCurrentTask, currentTask, boardData }}>
         {
-          
+
           noColumn
             ? <div className="board-no-columns" style={{
               marginLeft: showSidebar ? 251 : 0,

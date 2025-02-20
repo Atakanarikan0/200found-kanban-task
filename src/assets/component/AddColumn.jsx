@@ -20,7 +20,7 @@ export default function AddColumn({ addNewColRef, id, type }) {
   function addNewColumnInput(e) {
     e.preventDefault();
     const newInput = {
-      id: crypto.randomUUID(), 
+      id: crypto.randomUUID(),
       name: "",
     };
     setInputs([...inputs, newInput]);
@@ -33,7 +33,7 @@ export default function AddColumn({ addNewColRef, id, type }) {
 
     const updatedColumns = inputs.map((input) => ({
       id: input.id,
-      name: formObj[`columnName${input.id}`], 
+      name: formObj[`columnName${input.id}`],
       tasks: boardData?.columns?.find(x => x.id == input.id)?.tasks,
     }));
 
@@ -51,7 +51,7 @@ export default function AddColumn({ addNewColRef, id, type }) {
 
   return (
     <>
-      <dialog ref={addNewColRef}>
+      <dialog ref={addNewColRef} className="add-column">
         <div>
           <h4>Add New Column</h4>
           <form ref={resetRef} onSubmit={handleColumnSubmit}>
@@ -69,11 +69,11 @@ export default function AddColumn({ addNewColRef, id, type }) {
                 key={input.id}
                 type="text"
                 defaultValue={input.name}
-                name={`columnName${input.id}`} 
+                name={`columnName${input.id}`}
               />
             ))}
-            <button onClick={addNewColumnInput}>+ Add New Column</button>
-            <button type="submit">Save Changes</button>
+            <button onClick={addNewColumnInput} className="addNewColumnBtn">+ Add New Column</button>
+            <button type="submit" className="saveChBtn">Save Changes</button>
           </form>
         </div>
       </dialog>

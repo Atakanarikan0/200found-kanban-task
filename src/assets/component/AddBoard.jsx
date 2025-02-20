@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { DataContext } from "../../App";
-
+import "../css/dialogs.css"
 export default function AddBoard() {
   const [inputId, setInputId] = useState(0);
   const [inputs, setInputs] = useState([0]);
@@ -21,10 +21,10 @@ export default function AddBoard() {
       id: crypto.randomUUID(),
       name: formObj.name,
       columns: inputs.map(x => ({
-          id: crypto.randomUUID(),
-          name: formObj[`columnName${x}`],
-          tasks: []
-        })
+        id: crypto.randomUUID(),
+        name: formObj[`columnName${x}`],
+        tasks: []
+      })
       )
     }
     setData((prevData) => [...prevData, columnObj]);
@@ -38,7 +38,7 @@ export default function AddBoard() {
 
   return (
     <>
-      <dialog ref={addRef}>
+      <dialog ref={addRef} className="add-board">
         <div>
           <h4>Add New Board</h4>
           <form onSubmit={(e) => handleBoardSubmit(e)}>
@@ -53,8 +53,8 @@ export default function AddBoard() {
               defaultValue="" 
               name={`columnName${x}`} />)
             }
-            <button onClick={addNewColumnInput}>+ Add New Column</button>
-            <button type="submit">Create New Board</button>
+            <button onClick={addNewColumnInput} className="addNewColumnBtn">+ Add New Column</button>
+            <button type="submit" className="createNewBoardBtn">Create New Board</button>
           </form>
         </div>
       </dialog>

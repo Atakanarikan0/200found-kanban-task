@@ -1,44 +1,65 @@
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import { DataContext } from "../../App";
 import EditTask from "./EditTask";
+import "../css/dialogs.css"
 
 export default function TaskDetail({ boardData, currentTask, dialogRef, deleteTask }) {
-  const { data } = useContext(DataContext);
-  const editTaskRef = useRef();
+  const { data, updateTaskStatus } = useContext(DataContext);
 
-  function handleStatusChange() {
-    console.log()
+  const editTaskRef = useRef();
+  const [isActive, setIsActive] = useState(false) // headerdaki state tekrar olusturuldu
+
+  function handleStatusChange(e) {
+    const newStatus = e.target.value;
+    updateTaskStatus(boardData.id, currentTask.id, newStatus);
+    dialogRef.current.close();
+  }
+
+  function toggleMenu() {
+    setIsActive(!isActive)
   }
 
   return (
     <>
-      <dialog ref={dialogRef}>
-        {/* <dialog style={{zIndex:-1}} onClick={() => dialogRef.current.close()} ref={dialogRef}> */}
+      <dialog ref={dialogRef} className="input-dialog" >
+        <div className="input-todos">
+          <div className="kebab-container">
+            <div className="kebab" onClick={toggleMenu}>
+              <figure className={isActive ? 'active' : ""}></figure>
+              <figure className={isActive ? 'middle active' : 'middle'}></figure>
+              <p className={isActive ? 'cross active' : 'cross'}>x</p>
+              <figure className={isActive ? 'active' : ""}></figure>
+              <ul className={isActive ? 'dropdown active' : 'dropdown'}>
+                <li><a href="#" onClick={() => { dialogRef.current.close(); editTaskRef.current.showModal() }}>Edit Task</a></li>
 
-        <div style={{ width: "100%", height: "100%", zIndex: "999" }}>
-          <h3>{currentTask?.title}</h3>
-          <p>{currentTask?.description}</p>
-          <p>{currentTask?.subtasks?.filter(z => z?.isCompleted == true).length} of {currentTask?.subtasks?.length} subtasks</p>
-          <h4>Subtasks</h4>
-          <div>
-            {
-              currentTask?.subtasks?.map(x => <label><input type="checkbox" defaultChecked={x.isCompleted} />{x.title}</label>)
-            }
+                <li><a href="#" style={{ color: 'red' }} onClick={() => { dialogRef.current.close(); deleteTask(); }}>Delete Task</a></li>
+              </ul>
+            </div>
+
+            <h3>{currentTask?.title}</h3>
+          </div>
+          <p className="input-description" >{currentTask?.description}</p>
+          <p className="input-subtasks" >{currentTask?.subtasks?.filter(z => z?.isCompleted == true).length} of {currentTask?.subtasks?.length} subtasks</p>
+          <div className="checkbox-subtasks" >
+            {currentTask?.subtasks?.map(x => (
+              <label key={x.title}>
+                <input type="checkbox" defaultChecked={x.isCompleted} />
+                {x.title}
+              </label>
+            ))}
           </div>
           <h4>Current Status</h4>
-          <select onChange={handleStatusChange} name="">
-            {
-              boardData?.columns?.map(x => <option
-                selected={currentTask.status == x.name && "selected"}
-                value={x.name}>
+          <select className="status-change" onChange={handleStatusChange} value={currentTask.status}>
+            {boardData?.columns?.map(x => (
+              <option key={x.name} value={x.name}>
                 {x.name}
-              </option>)
-            }
+              </option>
+            ))}
           </select>
-          <button onClick={() => {dialogRef.current.close(); editTaskRef.current.showModal()}}>edit task</button>
-          <button onClick={() => {dialogRef.current.close(); deleteTask();}}>delete task</button>
+          {/* <button onClick={() => { dialogRef.current.close(); editTaskRef.current.showModal() }}>edit task</button>
+          <button onClick={() => { dialogRef.current.close(); deleteTask(); }}>delete task</button> */}
         </div>
-      </dialog>
+      </dialog >
       <EditTask editTaskRef={editTaskRef} />
     </>
   )

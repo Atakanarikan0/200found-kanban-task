@@ -1,0 +1,249 @@
+/*view task*/
+
+.input-dialog {
+  width: 343px;
+
+  h3 {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22.68px;
+    margin-bottom: 24px;
+  }
+
+  .input-description {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 23px;
+    color: #828fa3;
+    margin-bottom: 24px;
+  }
+
+  .input-subtasks {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 15.12px;
+    color: #828fa3;
+    margin-bottom: 16px;
+  }
+
+  .checkbox-subtasks {
+    display: grid;
+    gap: 8px;
+    border-radius: 4px;
+
+    label {
+      border-radius: 2px;
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 15.12px;
+      background-color: #f4f7fd;
+      padding: 13px;
+    }
+
+    label:hover {
+      background-color: #bdbbf7;
+      color: #000112;
+    }
+  }
+
+  .checkbox-subtasks label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #000112;
+    /* Varsayılan renk (siyah) */
+  }
+
+  .checkbox-subtasks label:has(input:checked) {
+    color: #828fa3;
+    text-decoration: line-through;
+  }
+
+  .checkbox-subtasks input[type="checkbox"] {
+    accent-color: #635fc7;
+    /* Checkbox rengi */
+  }
+
+  h4 {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 15.12px;
+    letter-spacing: 0px;
+    color: #828fa3;
+    margin-bottom: 8px;
+    margin-top: 24px;
+  }
+
+  .status-change {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 23px;
+    width: 295px;
+    border-radius: 2px;
+    padding: 8px;
+    border: 1px solid #828fa340;
+  }
+}
+
+/*Add board*/
+/*Add column*/
+.add-board,
+.add-column {
+  width: 343px;
+  padding: 24px;
+
+  h4 {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22.68px;
+    margin-bottom: 24px;
+  }
+
+  legend {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 15.12px;
+    letter-spacing: 0px;
+    color: #828fa3;
+    margin-bottom: 8px;
+  }
+
+  .addNewColumnBtn,
+  .addNewColumnBtnT {
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 23px;
+    color: #635fc7;
+    width: 295px;
+    height: 40px;
+    border-radius: 20px;
+    border-color: transparent;
+    background-color: #635fc71a;
+    margin-bottom: 24px;
+  }
+
+  .createNewBoardBtn,
+  .saveChBtn {
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 23px;
+    color: #ffffff;
+    width: 295px;
+    height: 40px;
+    border-radius: 20px;
+    border-color: transparent;
+    background-color: #635fc7;
+  }
+}
+
+/*Edit task*/
+
+.edit-task {
+  /* overflow-y: hidden; */
+  h4 {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22.68px;
+    margin-bottom: 24px;
+  }
+
+  p {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 15.12px;
+    letter-spacing: 0px;
+    color: #828fa3;
+    margin-bottom: 8px;
+  }
+
+  .edit-task-subtasks-inner {
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+
+    .deleteBtn {
+      width: 15px;
+      height: 15px;
+      background-color: transparent;
+      border: none;
+      color: #828fa3;
+    }
+
+    .inp {
+      width: 264px;
+    }
+  }
+
+  .addNewSubtaskBtn {
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 23px;
+    color: #635fc7;
+    width: 295px;
+    height: 40px;
+    border-radius: 20px;
+    border-color: transparent;
+    background-color: #635fc71a;
+    margin-bottom: 24px;
+  }
+
+  .sbmtBtn {
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 23px;
+    color: #ffffff;
+    width: 295px;
+    height: 40px;
+    border-radius: 20px;
+    border-color: transparent;
+    background-color: #635fc7;
+  }
+}
+
+@media (width >=525px) {
+  /*view task*/
+  .input-dialog {
+    width: 480px;
+    padding: 32px;
+
+    .status-change {
+      width: 416px;
+    }
+  }
+
+  /*Add board*/
+  /*Add column*/
+  .add-board,
+  .add-column {
+    width: 480px;
+    padding: 32px;
+
+    .addNewColumnBtn,
+    .addNewColumnBtnT,
+    .createNewBoardBtn,
+    .saveChBtn {
+      width: 416px;
+    }
+  }
+
+  /*Edit task*/
+  .edit-task {
+    width: 480px;
+
+    .edit-task-subtasks-inner {
+      .inp {
+        width: 385px;
+      }
+    }
+    .addNewSubtaskBtn,
+    .sbmtBtn {
+      width: 416px;
+    }
+  }
+}
+
+.kebab-container {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
