@@ -234,8 +234,13 @@ export default function Header() {
           <label>Substasks</label>
           {subtask.map(x => (
             <div className="subtask" key={x.id}>
-              <input type="text" value={x.value} placeholder="e.g. Make coffee" onChange={(e) => handleSubtasksChange(x.id, e)} />
-              <img src='/img/delete-icon.svg' onClick={() => handleDelete(x.id)} alt="" />
+              <input type="text" value={x.value} placeholder="e.g. Make coffee"  onChange={(e) => handleSubtasksChange(x.id, e)} />
+              <svg width="15" height="15" viewBox="0 0 15 15" fill="none" onClick={() => handleDelete(x.id)} xmlns="http://www.w3.org/2000/svg">
+                <rect x="12.7279" width="3" height="18" transform="rotate(45 12.7279 0)" fill="#828FA3"/>
+                <rect y="2.12109" width="3" height="18" transform="rotate(-45 0 2.12109)" fill="#828FA3"/>
+              </svg>
+
+              {/* <img src='/img/delete-icon.svg' onClick={() => handleDelete(x.id)} alt="" /> */}
             </div>
           ))}
 
@@ -247,7 +252,7 @@ export default function Header() {
             <option value="Done">Done</option>
             <option value="Now">Now</option>
           </select>
-          <button className="create-task">Create Task</button>
+          <button className="create-task">Creating Task</button>
         </form>
 
       </dialog>

@@ -5,6 +5,7 @@
   display: inline-block;
   box-sizing: border-box;
   padding: 0 16px;
+
   figure {
     width: 6px;
     height: 6px;
@@ -13,6 +14,7 @@
     margin: 3px 0;
   }
 }
+
 .middle {
   transition: all 0.25s cubic-bezier(0.72, 1.2, 0.71, 0.72);
   transform: scale(1);
@@ -21,12 +23,14 @@
     0 0.1px 0.3px 0 rgba(0, 0, 0, 0.12);
   filter: blur(0.1px);
 }
+
 .middle.active {
   transform: scale(4.5);
   transition: all 0.25s cubic-bezier(0.32, 2.04, 0.85, 0.54);
   box-shadow: 0 0.1px 0.1px 0 rgba(0, 0, 0, 0.16),
     0 0.1px 0.3px 0 rgba(0, 0, 0, 0.12);
 }
+
 .cross {
   position: absolute;
   top: 50%;
@@ -43,6 +47,7 @@
   transform: translate(-50%, -50%) scale(1);
   transition: all 0.15s cubic-bezier(0.32, 2.04, 0.85, 0.54);
 }
+
 .dropdown {
   position: absolute;
   right: 0;
@@ -52,10 +57,12 @@
   transform-origin: 100% 0;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 8px 0 rgba(0, 0, 0, 0.12);
   z-index: 1;
-  > li {
+
+  >li {
     display: block;
     width: 100%;
-    > a {
+
+    >a {
       width: 100%;
       padding: 1em 18px;
       display: inline-block;
@@ -63,6 +70,7 @@
       color: #828fa3;
     }
   }
+
   &:hover {
     ul {
       transform: scale(1);
@@ -75,6 +83,7 @@
   transition: all 0.25s cubic-bezier(0.5, 1.8, 0.9, 0.8);
   background-color: #fff;
 }
+
 /* Kebab Menu End */
 
 /* Header  */
@@ -97,6 +106,7 @@
     margin-left: 16px;
     background: url(/img/down-icon.svg) no-repeat right;
     padding-right: 16px;
+
     h1 {
       font-weight: 700;
       font-size: 18px;
@@ -104,7 +114,8 @@
       letter-spacing: 0px;
     }
   }
-  > div {
+
+  >div {
     span {
       background: #635fc7;
       padding: 10px 18px;
@@ -112,6 +123,7 @@
       display: inline-block;
       cursor: pointer;
     }
+
     .empty-task {
       background: #D8D7F1;
     }
@@ -122,6 +134,7 @@
     margin-left: 16px;
     background: url(/img/up-icon.svg) no-repeat right;
     padding-right: 16px;
+
     h1 {
       font-weight: 700;
       font-size: 18px;
@@ -149,6 +162,7 @@ dialog {
       letter-spacing: 0px;
       margin-bottom: 24px;
     }
+
     label {
       display: block;
       font-weight: 700;
@@ -158,6 +172,7 @@ dialog {
       margin-bottom: 8px;
       color: #828fa3;
     }
+
     input {
       margin-bottom: 24px;
       border: 1px solid #828fa340;
@@ -169,6 +184,7 @@ dialog {
       letter-spacing: 0px;
       border-radius: 4px;
     }
+
     textarea {
       resize: none;
       width: 100%;
@@ -181,16 +197,27 @@ dialog {
       border-radius: 4px;
       margin-bottom: 24px;
     }
+
     .subtask {
       display: flex;
       align-items: center;
       height: auto;
       gap: 16px;
       margin-bottom: 24px;
+
       input {
         margin-bottom: 0;
       }
+
+      svg {
+        cursor: pointer;
+      }
+
+      svg:hover rect {
+        fill: #EA5555;
+      }
     }
+
     .add-new-subtask {
       color: #635fc7;
       border: none;
@@ -203,7 +230,25 @@ dialog {
       line-height: 23px;
       letter-spacing: 0px;
       margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
     }
+    .add-new-subtask::before {
+      content: "";
+      padding-block: 8px;
+      position: absolute;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      color: #FFF;
+      background: #635FC740;
+      transition: right 0.4s ease;
+    }
+    .add-new-subtask:hover::before { right: 0; }
+
+
     select {
       width: 100%;
       padding: 8px 16px;
@@ -214,6 +259,7 @@ dialog {
       letter-spacing: 0px;
       margin-bottom: 21px;
     }
+
     .create-task {
       background: #635fc7;
       color: #fff;
@@ -225,14 +271,41 @@ dialog {
       font-size: 13px;
       line-height: 23px;
       letter-spacing: 0px;
+      transition: color .3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .create-task::before {
+      content: "Create Task";
+      padding-block: 8px;
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      color: #FFF;
+      background: #A8A4FF;
+      transition: left 0.4s ease;
+    }
+    .button:hover::before { left: 100%; }
+
+    .create-task:hover {
+      color: #FFF;
+    }
+    .create-task:hover::before {
+      left: 0;
     }
   }
 }
+
 /* dialog end */
 dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: -1;
 }
+
 /* Nav dialog start */
 .nav-ref {
   box-shadow: 0px 10px 20px 0px #364e7e40;
@@ -262,12 +335,14 @@ dialog::backdrop {
     margin-left: -2rem;
     color: #828fa3;
   }
+
   .active {
     background: #635fc7;
     color: #fff;
     width: 100%;
     border-radius: 0 100px 100px 0;
   }
+
   button:focus {
     outline: none;
   }
@@ -294,7 +369,7 @@ dialog::backdrop {
   flex-direction: column;
   gap: 14px;
 
-  > button {
+  >button {
     font-weight: 700;
     font-size: 15px;
     line-height: 18.9px;
@@ -333,6 +408,7 @@ dialog::backdrop {
       padding: 3px;
       transition: all 0.8s ease-in-out;
     }
+
     .switch:after {
       content: "";
       background-color: white;
@@ -365,6 +441,7 @@ dialog::backdrop {
     color: #ea5555;
     margin-bottom: 24px;
   }
+
   p {
     font-weight: 500;
     font-size: 13px;
@@ -401,8 +478,10 @@ dialog::backdrop {
 @media (min-width: 525px) {
   .header {
     padding: 16px 24px;
+
     .board-name {
       margin-right: auto;
+
       h1 {
         font-size: 20px;
         font-weight: 700;
@@ -410,10 +489,11 @@ dialog::backdrop {
       }
     }
 
-    > div {
+    >div {
       display: flex;
       align-items: center;
       gap: 8px;
+
       span {
         display: flex;
         align-items: center;
@@ -436,6 +516,7 @@ dialog::backdrop {
 @media (min-width: 1024px) {
   .header {
     padding: 20px 32px 28px 24px;
+
     hr {
       height: 98px;
       margin-block: -32px;
