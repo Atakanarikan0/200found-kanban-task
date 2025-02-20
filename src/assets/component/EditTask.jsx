@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react"
 import { ColTaskContext } from "./Board"
 import { DataContext } from "../../App";
-
+import "../css/dialogs.css"
 export default function EditTask({ editTaskRef }) {
   const { currentTask, boardData } = useContext(ColTaskContext);
   const { data, setData } = useContext(DataContext);
@@ -36,42 +36,42 @@ export default function EditTask({ editTaskRef }) {
     const formObj = Object.fromEntries(formData);
 
     const updatedSubtasks = subtasks.map((st) => ({
-        id: st.id,
-        title: formObj[`subtask-${st.id}`] || st.title, 
-        isCompleted: st.isCompleted,
+      id: st.id,
+      title: formObj[`subtask-${st.id}`] || st.title,
+      isCompleted: st.isCompleted,
     }));
 
-    setSubtasks(updatedSubtasks); 
+    setSubtasks(updatedSubtasks);
 
     const updatedTask = {
-        ...currentTask,
-        title: formObj.title,
-        description: formObj.description,
-        status: formObj.status,
-        subtasks: updatedSubtasks,
+      ...currentTask,
+      title: formObj.title,
+      description: formObj.description,
+      status: formObj.status,
+      subtasks: updatedSubtasks,
     };
 
     const updatedBoardData = data.map((board) =>
-        board.id === boardData.id
-            ? {
-                ...board,
-                columns: board.columns.map((column) =>
-                    column.name === currentTask.status
-                        ? {
-                            ...column,
-                            tasks: column.tasks.map((task) =>
-                                task.id === currentTask.id ? updatedTask : task
-                            ),
-                        }
-                        : column
+      board.id === boardData.id
+        ? {
+          ...board,
+          columns: board.columns.map((column) =>
+            column.name === currentTask.status
+              ? {
+                ...column,
+                tasks: column.tasks.map((task) =>
+                  task.id === currentTask.id ? updatedTask : task
                 ),
-            }
-            : board
+              }
+              : column
+          ),
+        }
+        : board
     );
 
     setData(updatedBoardData);
     editTaskRef.current.close();
-}
+  }
 
 
   function handleSubtasksChange(id, e) {
@@ -89,34 +89,36 @@ export default function EditTask({ editTaskRef }) {
 
   return (
     <>
-      <dialog ref={editTaskRef}>
+      <dialog ref={editTaskRef} className="edit-task">
         <form ref={editTaskFormRef} onSubmit={handleSubtaskSubmit}>
           <p>Title</p>
           <input type="text" name="title" defaultValue={currentTask?.title} />
           <p>Description</p>
           <textarea name="description" defaultValue={currentTask?.description}></textarea>
           <p>Subtasks</p>
-          <div className="edit-task-subtasks">
+          <div className="edit-task-subtasks" >
             {
-              subtasks.map(x => <div>
-                <input 
-                type="text" 
-                name={`subtask-${x.id ?? crypto.randomUUID()}`}
-                defaultValue={x.title}
-                onChange={(e) => handleSubtasksChange(x.id, e)} />
-                <button onClick={() => handleDelete(x.id)} type="button">X</button>
-                </div>)
+              subtasks.map(x => <div className="edit-task-subtasks-inner">
+                <div className="inp">
+                  <input
+                    type="text"
+                    name={`subtask-${x.id ?? crypto.randomUUID()}`}
+                    defaultValue={x.title}
+                    onChange={(e) => handleSubtasksChange(x.id, e)} />
+                </div>
+                <button onClick={() => handleDelete(x.id)} type="button" className="deleteBtn">X</button>
+              </div>)
             }
-            
+
           </div>
-          <button type="button" onClick={(e) => addNewSubtask(e)}>+ Add New Subtask</button>
+          <button type="button" onClick={(e) => addNewSubtask(e)} className="addNewSubtaskBtn">+ Add New Subtask</button>
           <p>Status</p>
           <select name="status" id="">
             {
               columns?.map(x => <option selected={x.name == currentTask.status} key={x.id} value={x.name}>{x.name}</option>)
             }
           </select>
-          <button type="submit">Save Changes</button>
+          <button type="submit" className="sbmtBtn">Save Changes</button>
         </form>
       </dialog>
     </>

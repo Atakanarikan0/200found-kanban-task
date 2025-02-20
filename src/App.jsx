@@ -36,10 +36,44 @@ export default function App() {
   }, [])
 
 
+  function updateTaskStatus(boardId, taskId, newStatus) {
+    setData((prevData) => {
+      return prevData.map((board) => {
+        if (board.id === boardId) {
+          let taskToMove = null;
+          const updatedColumns = board.columns.map((column) => {
+            const taskIndex = column.tasks.findIndex((task) => task.id === taskId);
+            if (taskIndex !== -1) {
+              taskToMove = column.tasks[taskIndex];
+              return {
+                ...column,
+                tasks: column.tasks.filter((task) => task.id !== taskId),
+              };
+            }
+            return column;
+          });
+          const finalColumns = updatedColumns.map((column) => {
+            if (column.name === newStatus) {
+              return {
+                ...column,
+                tasks: [...column.tasks, { ...taskToMove, status: newStatus }],
+              };
+            }
+            return column;
+          });
+          return {
+            ...board,
+            columns: finalColumns,
+          };
+        }
+        return board;
+      });
+    });
+  }
 
   return (
     <>
-      <DataContext.Provider value={{ data, setData, addRef, selectedBoardId, setSelectedBoardId, boards, screenSize, showSidebar, setShowSidebar }}>
+      <DataContext.Provider value={{ data, setData, addRef, selectedBoardId, setSelectedBoardId, boards, screenSize, showSidebar, setShowSidebar, updateTaskStatus }}>
         <Header />
         {screenSize ? '' : <Sidebar />}
         <Board id={selectedBoardId} />

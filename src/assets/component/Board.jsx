@@ -11,7 +11,7 @@ export const ColTaskContext = createContext();
 export default function Board({ id }) {
   const addNewColRef = useRef();
   const dialogRef = useRef();
-  const { data, showSidebar, setShowSidebar } = useContext(DataContext);
+  const { data, showSidebar, setShowSidebar, setData } = useContext(DataContext);
   const [currentTask, setCurrentTask] = useState({});
   const boardData = data.find(x => x.id == id); // useEffect içinde daha mı iyi olur diye sor
   const [columns, setColumns] = useState([]);
@@ -20,7 +20,7 @@ export default function Board({ id }) {
 
   useEffect(() => {
     setColumns(boardData?.columns);
-  }, [id])
+  }, [id, data])
 
   useEffect(() => {
     boardData?.columns?.length > 0 ? setNoColumn(false) : setNoColumn(true)
@@ -58,7 +58,7 @@ export default function Board({ id }) {
     <>
       <ColTaskContext.Provider value={{ openModal, setCurrentTask, currentTask, boardData }}>
         {
-          
+
           noColumn
             ? <div className="board-no-columns" style={{
               marginLeft: showSidebar ? 251 : 0,
