@@ -3,7 +3,7 @@ import { useContext } from "react";
 import '../css/sidebar.css';
 
 export default function Sidebar() {
-  const { data, selectedBoardId, setSelectedBoardId, boards, addRef, showSidebar, setShowSidebar } = useContext(DataContext)
+  const { data, selectedBoardId, setSelectedBoardId, boards, addRef, showSidebar, setShowSidebar, handleThemeChange } = useContext(DataContext)
 
   return (
     <>
@@ -32,7 +32,7 @@ export default function Sidebar() {
           <div>
             <div className="theme">
               <img src="/img/sun-icon.svg" alt="" />
-              <input type="checkbox" name="" id="" className="switch" />
+              <input type="checkbox" onChange={handleThemeChange} name="" id="" className="switch" />
               <img src="/img/moon-icon.svg" alt="" />
 
             </div>
