@@ -4,10 +4,8 @@ import '../css/sidebar.css';
 
 export default function Sidebar() {
   const { data, setData, selectedBoardId, setSelectedBoardId, boards, addRef, screenSize, showSidebar, setShowSidebar } = useContext(DataContext)
-  const [activeBtn, setActiveBtn] = useState(0);
 
   return (
-
     <>
       {showSidebar ?
         <div className="sidebar">

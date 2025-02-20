@@ -112,6 +112,9 @@
       display: inline-block;
       cursor: pointer;
     }
+    .empty-task {
+      background: #D8D7F1;
+    }
   }
 
   .arrow-up {
@@ -445,3 +448,6 @@ dialog::backdrop {
   opacity: 0;
 }
 
+.empty-task {
+  background: #D8D7F1;
+}
