@@ -66,7 +66,7 @@ export default function Board({ id }) {
               <p>This board is empty. Create a new column to get started.</p>
               <button className="empty-board-add-column-btn" onClick={() => { addNewColRef.current.showModal() }}>+ Add New Column</button>
             </div>
-            : <div className="board-columns-cont" style={{
+            : <div className="board-columns-cont"  style={{
               marginLeft: showSidebar ? 251 : 0,
               transition: 'all 1s ease-in-out'
             }}>

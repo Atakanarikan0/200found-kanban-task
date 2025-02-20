@@ -3,7 +3,7 @@ import { DataContext } from "../../App";
 import '../css/header.css';
 
 export default function Header() {
-  const { data, setData, selectedBoardId, setSelectedBoardId, boards, addRef, screenSize, addNewColRef } = useContext(DataContext)
+  const { data, setData, selectedBoardId, setSelectedBoardId, boards, addRef, screenSize, addNewColRef, showSidebar } = useContext(DataContext)
   const [isActive, setIsActive] = useState(false)
   const [isDown, setIsDown] = useState(false)
   const dialogRef = useRef(null);
@@ -103,7 +103,10 @@ export default function Header() {
         <div className={`header ${hidden ? "hidden-header" : ""}`}>
           <img src="/img/logo-mobil.svg" alt="" />
           <div className={isDown ? 'arrow-up' : 'header-launch'}>
-            <h1 onClick={handleNav}>Platform Launch</h1>
+            <h1 onClick={handleNav} style={{
+              marginLeft: showSidebar ? 56 : 0,
+              transition: 'all 1s ease-in-out'
+            }}>Platform Launch</h1>
             <dialog ref={boardRef} className="nav-ref">
               <div className="nav-ref-content">
                 <h3>ALL BOARDS({data.length})</h3>
@@ -167,7 +170,10 @@ export default function Header() {
           <img src="/img/logo-desktop-light.png" alt="" />
           <hr />
           <div className="board-name">
-            <h1>{data.find(x => x.id === selectedBoardId)?.name}</h1>
+            <h1 style={{
+              marginLeft: showSidebar ? 56 : 0,
+              transition: 'all 1s ease-in-out'
+            }}>{data.find(x => x.id === selectedBoardId)?.name}</h1>
           </div>
 
           <div>
@@ -209,7 +215,7 @@ export default function Header() {
       <div>
         <dialog className="delete-check" ref={deleteRef}>
           <h2 >Delete this board?</h2>
-          <p>Are you sure you want to delete the ‘Platform Launch’ board? This action will remove all columns and tasks and cannot be reversed.</p>
+          <p>Are you sure you want to delete the "{data.find(x => x.id === selectedBoardId)?.name}" board? This action will remove all columns and tasks and cannot be reversed.</p>
           <button className="delete-btn" onClick={handleDeleteBoard}>Delete</button>
           <button onClick={() => deleteRef.current.close()} className="cancel-btn">Cancel</button>
         </dialog>

@@ -43,14 +43,14 @@ export default function AddBoard() {
           <h4>Add New Board</h4>
           <form onSubmit={(e) => handleBoardSubmit(e)}>
             <legend>Name</legend>
-            <input type="text" name="name" defaultValue="aaa" placeholder="e.g. Web Design" />
+            <input type="text" name="name" defaultValue="" placeholder="e.g. Web Design" />
             <legend>Columns</legend>
             {
               inputs.map(x => 
               <input 
               key={x.id}
               type="text" 
-              defaultValue="bbb" 
+              defaultValue="" 
               name={`columnName${x}`} />)
             }
             <button onClick={addNewColumnInput}>+ Add New Column</button>
