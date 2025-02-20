@@ -3,7 +3,7 @@ import { DataContext } from "../../App";
 import '../css/header.css';
 
 export default function Header() {
-  const { data, setData, selectedBoardId, setSelectedBoardId, boards, addRef, screenSize, addNewColRef, showSidebar, isEdit, setIsEdit, theme } = useContext(DataContext)
+  const { data, setData, selectedBoardId, setSelectedBoardId, boards, addRef, screenSize, addNewColRef, showSidebar, isEdit, setIsEdit, theme, handleThemeChange } = useContext(DataContext)
   const [isActive, setIsActive] = useState(false)
   const [isDown, setIsDown] = useState(false)
   const dialogRef = useRef(null);
@@ -101,11 +101,7 @@ export default function Header() {
     <>
       {screenSize ?
         <div className={`header ${hidden ? "hidden-header" : ""}`}>
-          {
-            theme == "dark"
-            ? <img src="/img/logo-desktop-dark.png" alt="" />
-            : <img src="/img/logo-desktop-light.png" alt="" />
-          }
+          <img src="/img/logo-mobil.svg" alt="" />
           <div className={isDown ? 'arrow-up' : 'header-launch'}>
             <h1 onClick={handleNav} >Platform Launch</h1>
             <dialog ref={boardRef} className="nav-ref">
@@ -126,7 +122,7 @@ export default function Header() {
                 </svg> + Create New Board</button>
                 <div className="theme">
                   <img src="/img/sun-icon.svg" alt="" />
-                  <input type="checkbox" name="" id="" className="switch" />
+                  <input type="checkbox" defaultChecked={theme === "dark"} onChange={handleThemeChange} name="" id="" className="switch" />
                   <img src="/img/moon-icon.svg" alt="" />
 
                 </div>

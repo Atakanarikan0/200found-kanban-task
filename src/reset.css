@@ -197,7 +197,7 @@ ul.dropdown {
     border-bottom: 1px solid #3E3F4E !important;
   }
 
-  .theme {
+  .nav-ref-content .theme, .theme {
     background-color: var(--veryDarkGray);
   }
 
