@@ -1,3 +1,10 @@
+:root {
+  --veryDarkGray: #20212C;
+  --darkGray: #2B2C37;
+  --mainPurple: #635FC7;
+  --medGray: #828FA3;
+}
+
 /* 1. Use a more-intuitive box-sizing model */
 *,
 *::before,
@@ -96,3 +103,71 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb:hover {
   background-color: #635fc7; /* Hover (üzerine gelindiğinde) rengi */
 }
+
+/* berna start */
+
+ul.dropdown {
+  border-radius: 8px;
+}
+
+.dark-theme {
+  body, .board-columns-cont {
+    background-color: var(--veryDarkGray);
+  }
+
+  .column-header {
+    color: white;
+  }
+
+  .single-task-item, .header, 
+  .sidebar, dialog, ul.dropdown {
+    background-color: var(--darkGray);
+  }
+
+  .single-task-item, h1 {
+    color: white;
+  }
+
+  .board-add-column-btn {
+    background-image: linear-gradient( to bottom right, #2B2C37, rgba(43, 44, 55, 0.82));
+  }
+
+  .sidebar {
+    border: var(--darkGray);
+  }
+
+  .theme {
+    background-color: var(--veryDarkGray);
+  }
+
+  dialog {
+    input, textarea {
+      background-color: var(--darkGray);
+      color: white;
+    }
+
+    input:focus, textarea:focus {
+      border: 1px solid var(--mainPurple);
+      outline: 1px solid var(--mainPurple);
+    }
+
+    input:disabled {
+      color: var(--medGray);
+    }
+
+    button[type='button'], .cancel-btn {
+      background-color: white;
+    }
+
+    label, p, legend, h4 {
+      color: white;
+    }
+  }
+  
+
+
+  
+
+}
+
+/* berna end */

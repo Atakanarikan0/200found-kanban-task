@@ -19,6 +19,9 @@
     align-self: baseline;
     padding-left: 26px;
   }
+  .theme img {
+    padding: 0;
+  }
   button {
     display: flex;
     align-items: center;
