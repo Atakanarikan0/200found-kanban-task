@@ -289,8 +289,6 @@ dialog {
       background: #A8A4FF;
       transition: left 0.4s ease;
     }
-    .button:hover::before { left: 100%; }
-
     .create-task:hover {
       color: #FFF;
     }
