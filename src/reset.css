@@ -119,8 +119,9 @@ ul.dropdown {
 }
 
 .dark {
-
-  body,
+  
+  background-color: var(--veryDarkGray);
+  
   .board-columns-cont,
   html {
     background-color: var(--veryDarkGray);
@@ -152,23 +153,36 @@ ul.dropdown {
   }
 
   .board-add-column-btn {
-    background-image: linear-gradient(to bottom right, #2B2C37, rgba(43, 44, 55, 0.82));
+    background-color: var(--darkGray);
+    background-image: linear-gradient(to bottom, #323440, #242430);
   }
 
   .sidebar {
-    border: var(--darkGray);
+    border: 1px solid #3E3F4E;
+  }
+
+  hr {
+    border-right: 1px solid #3E3F4E !important;
+  }
+
+  .header {
+    border-bottom: 1px solid #3E3F4E !important;
   }
 
   .theme {
     background-color: var(--veryDarkGray);
   }
 
+  p.input-subtasks {
+    color: white;
+  }
+
   .checkbox-subtasks{ 
     label {
       background-color: var(--veryDarkGray) !important;
-
+      color: white !important;
     }
-    input[type='checkbox']:not(:checked) {
+    input[type='checkbox'] {
       background-color: var(--darkGray) !important;
       color: white !important;
     }

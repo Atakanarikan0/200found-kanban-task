@@ -3,13 +3,17 @@ import { useContext } from "react";
 import '../css/sidebar.css';
 
 export default function Sidebar() {
-  const { data, selectedBoardId, setSelectedBoardId, boards, addRef, showSidebar, setShowSidebar, handleThemeChange } = useContext(DataContext)
+  const { data, selectedBoardId, setSelectedBoardId, boards, addRef, showSidebar, setShowSidebar, handleThemeChange, theme } = useContext(DataContext)
 
   return (
     <>
       {showSidebar ?
         <div className="sidebar">
-          <img src="/img/logo-desktop-light.png" alt="" />
+          {
+            theme == "dark"
+            ? <img src="/img/logo-desktop-dark.png" alt="" />
+            : <img src="/img/logo-desktop-light.png" alt="" />
+          }
           <div className="sidebar-content">
             <h3>ALL BOARDS({data.length})</h3>
             {boards?.map(x => (
