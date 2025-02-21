@@ -72,9 +72,9 @@ export default function AddColumn({ addNewColRef, id, type }) {
             />
             <legend>Columns</legend>
             {inputs.map((input) => (
-              <div className="columnn-area">
+              <div className="columnn-area" key={input.id}>
                 <input
-                  key={input.id}
+                
                   type="text"
                   defaultValue={input.name}
                   required

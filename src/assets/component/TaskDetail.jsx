@@ -4,9 +4,8 @@ import EditTask from "./EditTask";
 import "../css/dialogs.css"
 
 export default function TaskDetail({ boardData, currentTask, dialogRef, deleteTask }) {
-  const { data, updateTaskStatus } = useContext(DataContext);
+  const { updateTaskStatus } = useContext(DataContext);
   const [increase, setIncrease] = useState(0)
-  const [clicked, setClicked] = useState(false)
   const editTaskRef = useRef();
   const [isActive, setIsActive] = useState(false) // headerdaki state tekrar olusturuldu
 

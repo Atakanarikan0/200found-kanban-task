@@ -252,4 +252,14 @@ ul.dropdown {
   }
 }
 
+button:focus {
+  outline: none;
+}
+
 /* berna end */
+
+@media(min-width: 1024px) {
+  dialog {
+    width: 480px !important;
+  }
+}

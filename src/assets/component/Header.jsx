@@ -94,7 +94,8 @@ export default function Header() {
 
   }
 
-
+const length = data.find(x => x.id === selectedBoardId)?.columns.length;
+console.log(length);
 
 
   return (
@@ -159,7 +160,7 @@ export default function Header() {
           </div>
 
           <div>
-            <span className={!data.find(x => x.id === selectedBoardId)?.columns.length > 0 && 'empty-task'} onClick={handleTask}><img src="/img/plus-icon.svg" alt="" /> Add New Task</span>
+            <span className={length > 0 ? '' : 'empty-task'} onClick={handleTask}><img src="/img/plus-icon.svg" alt="" /> Add New Task</span>
             <div className="kebab" onClick={toggleMenu}>
               <figure className={isActive ? 'active' : ""}></figure>
               <figure className={isActive ? 'middle active' : 'middle'}></figure>

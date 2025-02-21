@@ -120,7 +120,23 @@
     border-color: transparent;
     background-color: #635fc71a;
     margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
   }
+  .addNewColumnBtn::before {
+    content: "";
+    padding-block: 8px;
+    position: absolute;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    color: #FFF;
+    background: #635FC740;
+    transition: right 0.4s ease;
+  }
+  .addNewColumnBtn:hover::before { right: 0; }
 
   .createNewBoardBtn,
   .saveChBtn {
@@ -131,8 +147,29 @@
     width: 295px;
     height: 40px;
     border-radius: 20px;
-    border-color: transparent;
+    border: none;
     background-color: #635fc7;
+    overflow: hidden;
+    position: relative;
+  }
+  .createNewBoardBtn::before {
+    content: "Create Task";
+    padding-block: 8px;
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    color: #FFF;
+    background: #A8A4FF;
+    transition: left 0.4s ease;
+  }
+  .createNewBoardBtn:hover {
+    color: #FFF;
+  }
+  .createNewBoardBtn:hover::before {
+    left: 0;
   }
 }
 

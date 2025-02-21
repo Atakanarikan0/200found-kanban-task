@@ -82,8 +82,10 @@ export default function EditTask({ editTaskRef }) {
   }
 
   function handleDelete(id) {
-    setSubtasks(subtasks.filter((x) => x.id !== id));
+    setSubtasks(subtasks.filter((x) => x !== id));
   }
+
+
 
   const columns = boardData?.columns;
 
@@ -98,7 +100,8 @@ export default function EditTask({ editTaskRef }) {
           <p>Subtasks</p>
           <div className="edit-task-subtasks" >
             {
-              subtasks.map(x => <div className="edit-task-subtasks-inner">
+              subtasks.map(x => 
+              <div className="edit-task-subtasks-inner" key={crypto.randomUUID()}>
                 <div className="inp">
                   <input
                     type="text"
@@ -106,7 +109,7 @@ export default function EditTask({ editTaskRef }) {
                     defaultValue={x.title}
                     onChange={(e) => handleSubtasksChange(x.id, e)} />
                 </div>
-                <button onClick={() => handleDelete(x.id)} type="button" className="deleteBtn">X</button>
+                <button onClick={() => handleDelete(x)} type="button" className="deleteBtn">X</button>
               </div>)
             }
 

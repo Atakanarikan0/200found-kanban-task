@@ -36,6 +36,10 @@ export default function AddBoard() {
     // console.log(data);
   }, [data]);
 
+  function handleDelete(id) {
+    setInputs(inputs.filter(x => x !== id))
+  }
+  
   return (
     <>
       <dialog ref={addRef} className="add-board">
@@ -43,15 +47,22 @@ export default function AddBoard() {
           <h4>Add New Board</h4>
           <form onSubmit={(e) => handleBoardSubmit(e)}>
             <legend>Name</legend>
-            <input type="text" name="name" defaultValue="" placeholder="e.g. Web Design" />
+            <input type="text" name="name" required defaultValue="" placeholder="e.g. Web Design" />
             <legend>Columns</legend>
             {
               inputs.map(x => 
-              <input 
-              key={x.id}
-              type="text" 
-              defaultValue="" 
-              name={`columnName${x}`} />)
+              <div className="columnn-area" key={x}>
+                <input
+                required
+                type="text"
+                defaultValue=""
+                name={`columnName${x}`} />
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" onClick={() => handleDelete(x)} xmlns="http://www.w3.org/2000/svg">
+                  <rect x="12.7279" width="3" height="18" transform="rotate(45 12.7279 0)" fill="#828FA3" />
+                  <rect y="2.12109" width="3" height="18" transform="rotate(-45 0 2.12109)" fill="#828FA3" />
+                </svg>
+              </div>
+            )
             }
             <button onClick={addNewColumnInput} className="addNewColumnBtn">+ Add New Column</button>
             <button type="submit" className="createNewBoardBtn">Create New Board</button>
